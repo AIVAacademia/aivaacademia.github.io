@@ -3,15 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIVA | Educación Tecnológica y Consultoría de Procesos en Perú</title>
-    <meta name="description" content="Formación tecnológica AIVA Kids y Diagnóstico Estratégico de Procesos para negocios en todo el Perú. Implementación de Asistentes Inteligentes a medida.">
-    
+    <title>AIVA | Educación, Asistentes IA y Consultoría Estratégica</title>
+    <meta name="description" content="AIVA ofrece formación tecnológica Kids, Asistentes Inteligentes (IA) para profesionales y Diagnóstico Estratégico.">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://aivaacademia.github.io/">
-    <meta property="og:title" content="AIVA | Educación & Estrategia en Perú">
-    <meta property="og:description" content="Soluciones educativas y diagnósticos de procesos para negocios. Atención a nivel nacional.">
+    <meta property="og:title" content="AIVA | Tecnología & Estrategia">
     <meta property="og:image" content="portada-social.jpg">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -24,23 +19,21 @@
               fontFamily: { sans: ['Inter', 'sans-serif'] },
               colors: {
                 aiva: { dark: '#0f172a', surface: '#1e293b' },
-                brand: { kids: '#00c6fb', consult: '#cbd5e1' } 
+                brand: { kids: '#00c6fb', consult: '#cbd5e1', ia: '#a855f7' }
               },
-              animation: {
-                'float': 'float 6s ease-in-out infinite',
-              },
-              keyframes: {
-                float: {
-                  '0%, 100%': { transform: 'translateY(0)' },
-                  '50%': { transform: 'translateY(-20px)' },
-                }
-              }
+              animation: { 'float': 'float 6s ease-in-out infinite' },
+              keyframes: { float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-20px)' } } }
             }
           }
         }
     </script>
     <style>
         .hidden-section { display: none !important; }
+        /* Estilos para el scrollbar del modal */
+        .modal-scroll::-webkit-scrollbar { width: 8px; }
+        .modal-scroll::-webkit-scrollbar-track { background: #1e293b; }
+        .modal-scroll::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        .modal-scroll::-webkit-scrollbar-thumb:hover { background: #64748b; }
     </style>
 </head>
 <body class="bg-aiva-dark text-white font-sans antialiased relative">
@@ -51,74 +44,48 @@
                 <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="switchView('kids')">
                     <img src="logo-aiva.png" alt="Logo AIVA" class="h-10 w-auto">
                 </div>
-                
                 <div class="hidden md:flex space-x-1 items-center bg-white/5 rounded-full p-1 border border-white/10">
-                    <button onclick="switchView('kids')" id="nav-btn-kids" class="px-5 py-2 rounded-full text-sm font-medium transition-all text-brand-kids bg-white/10">
-                        AIVA Kids
-                    </button>
+                    <button onclick="switchView('kids')" id="nav-btn-kids" class="px-4 py-2 rounded-full text-sm font-medium transition-all text-brand-kids bg-white/10">Kids</button>
                     <div class="w-px h-4 bg-gray-600"></div>
-                    <button onclick="switchView('negocios')" id="nav-btn-negocios" class="px-5 py-2 rounded-full text-sm font-medium transition-all text-gray-400 hover:text-white">
-                        Consultoría Negocios
-                    </button>
+                    <button onclick="switchView('asistentes')" id="nav-btn-asistentes" class="px-4 py-2 rounded-full text-sm font-medium transition-all text-gray-400 hover:text-white hover:bg-white/5">Asistentes IA</button>
+                    <div class="w-px h-4 bg-gray-600"></div>
+                    <button onclick="switchView('negocios')" id="nav-btn-negocios" class="px-4 py-2 rounded-full text-sm font-medium transition-all text-gray-400 hover:text-white hover:bg-white/5">Negocios</button>
                 </div>
-
                 <div class="md:hidden flex items-center">
                     <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
-                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                        </svg>
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     </button>
                 </div>
             </div>
         </div>
-
         <div id="mobile-menu" class="hidden md:hidden bg-aiva-surface border-b border-white/10 shadow-xl">
             <div class="px-4 pt-4 pb-6 space-y-3 text-center">
-                <button onclick="switchView('kids')" class="w-full block px-3 py-2 text-base font-medium text-brand-kids bg-white/5 rounded-lg">🧒 Zona Kids</button>
-                <button onclick="switchView('negocios')" class="w-full block px-3 py-2 text-base font-bold text-white bg-slate-700/50 border border-slate-600 rounded-lg">📊 Consultoría Negocios</button>
+                <button onclick="switchView('kids')" class="w-full block px-3 py-2 text-base font-medium text-brand-kids bg-white/5 rounded-lg">🧒 Kids</button>
+                <button onclick="switchView('asistentes')" class="w-full block px-3 py-2 text-base font-medium text-purple-400 border border-purple-500/30 rounded-lg hover:bg-purple-500/10">🤖 Asistentes IA</button>
+                <button onclick="switchView('negocios')" class="w-full block px-3 py-2 text-base font-bold text-white bg-slate-700/50 border border-slate-600 rounded-lg">📊 Negocios</button>
             </div>
         </div>
     </nav>
 
     <main id="view-kids" class="transition-opacity duration-300">
-        
         <header class="relative pt-32 pb-16 lg:pt-48 lg:pb-32 overflow-hidden text-center px-4">
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full z-0 opacity-40 pointer-events-none">
                 <div class="absolute top-20 left-10 w-60 h-60 bg-blue-600 rounded-full blur-[100px]"></div>
                 <div class="absolute bottom-10 right-10 w-60 h-60 bg-teal-500 rounded-full blur-[100px]"></div>
             </div>
-            
             <div class="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
                 <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-8 backdrop-blur-sm">
-                    <span class="w-2 h-2 rounded-full bg-green-500"></span>
-                    <span class="text-sm font-medium text-gray-200">Verano 2026 - Todo el Perú</span>
+                    <span class="w-2 h-2 rounded-full bg-green-500"></span><span class="text-sm font-medium text-gray-200">Verano 2026 - Todo el Perú</span>
                 </div>
-
-                <h1 class="text-5xl md:text-8xl font-extrabold mb-6 leading-tight tracking-tight">
-                    AIVA <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">KIDS</span><br>
-                    <span class="text-white text-3xl md:text-6xl">Tecnología Creativa 🤖</span>
-                </h1>
-                
-                <p class="text-gray-300 text-lg md:text-2xl mb-8 max-w-2xl mx-auto leading-relaxed">
-                    Talleres prácticos de <span class="text-brand-kids font-bold">Inteligencia Artificial</span> y <span class="text-orange-400 font-bold">Videojuegos</span>.
-                </p>
-
+                <h1 class="text-5xl md:text-8xl font-extrabold mb-6 leading-tight tracking-tight">AIVA <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">KIDS</span><br><span class="text-white text-3xl md:text-6xl">Tecnología Creativa 🤖</span></h1>
+                <p class="text-gray-300 text-lg md:text-2xl mb-8 max-w-2xl mx-auto leading-relaxed">Talleres prácticos de <span class="text-brand-kids font-bold">Inteligencia Artificial</span> y <span class="text-orange-400 font-bold">Videojuegos</span>.</p>
                 <div class="flex flex-col items-center gap-6">
-                    <a href="#cursos" class="px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-teal-500 font-bold text-lg hover:scale-105 transition-transform text-white shadow-lg shadow-blue-500/30">
-                        🚀 Ver Talleres
-                    </a>
-                    
-                    <button onclick="switchView('negocios')" class="text-sm text-slate-400 hover:text-white transition-colors border-b border-transparent hover:border-white pb-0.5">
-                        También trabajamos con negocios en todo el Perú → Diagnóstico Estratégico
-                    </button>
+                    <a href="#cursos" class="px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-teal-500 font-bold text-lg hover:scale-105 transition-transform text-white shadow-lg shadow-blue-500/30">🚀 Ver Talleres</a>
+                    <button onclick="switchView('asistentes')" class="text-sm text-slate-400 hover:text-white transition-colors border-b border-transparent hover:border-white pb-0.5">¿Buscas herramientas para docentes o profesionales? → Ver Asistentes IA</button>
                 </div>
-
-                <div class="mt-12 relative w-40 md:w-56 animate-float cursor-pointer hover:scale-110 transition-transform duration-500">
-                     <img src="robot.png" alt="AIVA Robot" class="w-full h-auto drop-shadow-[0_0_30px_rgba(0,198,251,0.4)]">
-                </div>
+                <div class="mt-12 relative w-40 md:w-56 animate-float cursor-pointer hover:scale-110 transition-transform duration-500"><img src="robot.png" alt="AIVA Robot" class="w-full h-auto drop-shadow-[0_0_30px_rgba(0,198,251,0.4)]"></div>
             </div>
         </header>
-
         <section id="cursos" class="py-20 bg-aiva-dark border-t border-white/5">
             <div class="max-w-5xl mx-auto px-4">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -137,140 +104,142 @@
                 </div>
             </div>
         </section>
-
-        <a href="https://wa.me/51952225123?text=Hola,%20tengo%20una%20consulta%20sobre%20los%20talleres." 
-           target="_blank" 
-           class="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-[#25D366] hover:bg-[#20bd5a] text-white py-3 px-4 rounded-full shadow-2xl transition-all hover:-translate-y-1">
+        <a href="https://wa.me/51952225123?text=Hola,%20tengo%20una%20consulta%20sobre%20los%20talleres." target="_blank" class="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-[#25D366] hover:bg-[#20bd5a] text-white py-3 px-4 rounded-full shadow-2xl transition-all hover:-translate-y-1">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
         </a>
     </main>
 
-    <main id="view-negocios" class="hidden-section bg-slate-900 min-h-screen">
-        
-        <section class="py-32 relative">
-            <div class="max-w-6xl mx-auto px-4">
-                
-                <div class="flex flex-col md:flex-row gap-12 items-start">
-                    <div class="w-full md:w-2/3">
-                        <div class="inline-block px-3 py-1 rounded border border-slate-600 text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">
-                            Consultoría Estratégica
-                        </div>
-                        
-                        <p class="text-slate-400 text-sm mb-6 max-w-xl font-medium border-l-2 border-slate-700 pl-3">
-                            Experiencia en educación, procesos operativos y tecnología aplicada a negocios reales.
-                        </p>
-                        
-                        <h2 class="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
-                            Diagnóstico Estratégico <br>para Negocios Locales
-                        </h2>
-                        
-                        <p class="text-slate-300 text-lg leading-relaxed mb-8 max-w-2xl">
-                            Antes de pensar en tecnología, analizamos cómo gestionas tus procesos actuales (citas, inscripciones o pedidos) para detectar fugas operativas.
-                        </p>
+    <main id="view-asistentes" class="hidden-section bg-slate-900 min-h-screen transition-opacity duration-300">
+        <header class="relative pt-32 pb-16 text-center px-4 border-b border-white/5">
+            <div class="relative z-10 max-w-4xl mx-auto">
+                <div class="inline-block px-3 py-1 rounded border border-purple-500/30 text-purple-300 text-xs font-bold uppercase tracking-widest mb-6">Herramientas Profesionales</div>
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">Asistentes Inteligentes <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">(IA)</span></h1>
+                <p class="text-slate-300 text-lg md:text-xl mb-8 max-w-2xl mx-auto leading-relaxed">Diseñados para potenciar el estudio, la gestión educativa y el trabajo profesional.</p>
+            </div>
+        </header>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
-                            <div class="flex gap-4 p-4 rounded bg-slate-800/50 border border-slate-800">
-                                <div class="text-2xl">📋</div>
-                                <div>
-                                    <h4 class="font-bold text-white text-sm">1. Análisis de Proceso</h4>
-                                    <p class="text-xs text-slate-400 mt-1">Revisión del flujo de atención.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-4 p-4 rounded bg-slate-800/50 border border-slate-800">
-                                <div class="text-2xl">🔍</div>
-                                <div>
-                                    <h4 class="font-bold text-white text-sm">2. Detección de Fugas</h4>
-                                    <p class="text-xs text-slate-400 mt-1">Dónde se pierden los interesados.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mb-10 border-l border-slate-700 pl-6 ml-2">
-                            <h3 class="text-lg font-bold text-white mb-3 flex items-center gap-2">
-                                <span class="text-blue-400">💎</span> Solución a Medida: Asistentes (Gems)
-                            </h3>
-                            <p class="text-slate-400 text-sm mb-4 leading-relaxed max-w-xl">
-                                Una vez ordenado el proceso, configuramos <strong>Asistentes Inteligentes</strong> diseñados específicamente para tu negocio. No son bots genéricos; son herramientas entrenadas para tareas puntuales.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 bg-slate-800 rounded text-xs text-slate-300 border border-slate-700">Gem de Agendamiento</span>
-                                <span class="px-3 py-1 bg-slate-800 rounded text-xs text-slate-300 border border-slate-700">Gem de Filtro Inicial</span>
-                            </div>
-                        </div>
-
-                        <div class="mb-10 p-6 rounded-lg bg-slate-800/30 border border-slate-700/50">
-                            <h4 class="text-white font-bold text-sm mb-2">Un ejemplo típico</h4>
-                            <p class="text-slate-400 text-sm leading-relaxed">
-                                Un negocio recibe mensajes por WhatsApp, pero responde tarde o sin orden.
-                                <br><br>
-                                El asistente filtra al interesado, responde lo básico y deja lista la información clave para que el dueño continúe la conversación con claridad.
-                            </p>
-                        </div>
-
-                        <div>
-                            <p class="text-xs text-slate-500 mb-3 font-medium">
-                                Este servicio no es para emprendimientos en fase de idea.<br>
-                                Solo trabajamos con negocios que ya están operando.
-                            </p>
-
-                            <a href="https://wa.me/51952225123?text=Hola%20Willy,%20tengo%20un%20negocio%20y%20quiero%20evaluar%20si%20un%20diagnóstico%20estratégico%20me%20serviría." 
-                               target="_blank" 
-                               class="inline-flex items-center gap-3 px-8 py-4 bg-slate-200 text-slate-900 font-bold rounded-lg hover:bg-white transition-colors shadow-lg shadow-slate-900/50">
-                                <span>💬</span> Solicitar Evaluación
-                            </a>
-                            
-                            <div class="mt-4 text-xs text-slate-500 space-y-1">
-                                <p class="text-slate-400 font-medium">✅ Primera conversación breve. Sin compromiso.</p>
-                            </div>
+        <section class="py-12 relative">
+             <div class="max-w-6xl mx-auto px-4 relative z-10">
+                 <div class="mb-8 flex items-center gap-3">
+                     <span class="text-xl">🇵🇪</span><h3 class="text-xl font-bold text-white tracking-wide">Zona Escolar Perú</h3><div class="h-px bg-white/10 flex-grow"></div>
+                 </div>
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-aiva-surface border border-white/10 rounded-2xl p-6 hover:border-purple-500/50 transition-all flex flex-col">
+                        <div class="mb-4"><span class="text-3xl">🧠</span><h3 class="text-xl font-bold text-white mt-2">AIVA-Study (Prim/Sec)</h3></div>
+                        <p class="text-gray-400 text-sm mb-6 flex-grow">Apoyo para estudiantes peruanos. Estudio paso a paso, repasos y acompañamiento.</p>
+                        <div class="mt-auto">
+                            <a href="https://wa.me/51952225123?text=Hola%2C%20vengo%20desde%20la%20web.%20Solicito%20acceso%3A%20AIVA-Study%20(Peru)%20Nombre%3A---%20Correo%3A---" target="_blank" class="block text-center w-full py-3 px-4 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-lg mb-3">Solicitar acceso</a>
+                            <button onclick="openModal('primaria_pe')" class="w-full text-xs text-purple-400 hover:text-white border border-purple-500/30 rounded py-2 transition-colors">❓ Ver Preguntas Frecuentes</button>
                         </div>
                     </div>
+                    <div class="bg-aiva-surface border border-white/10 rounded-2xl p-6 hover:border-purple-500/50 transition-all flex flex-col">
+                        <div class="mb-4"><span class="text-3xl">🎓</span><h3 class="text-xl font-bold text-white mt-2">AIVA-Docente</h3></div>
+                        <p class="text-gray-400 text-sm mb-6 flex-grow">Para optimizar planificación, evaluación y creación de materiales educativos.</p>
+                        <div class="mt-auto">
+                            <a href="https://wa.me/51952225123?text=Hola%2C%20vengo%20desde%20la%20web.%20Solicito%20acceso%3A%20AIVA-Docente%20Nombre%3A---%20Correo%3A---" target="_blank" class="block text-center w-full py-3 px-4 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-lg mb-3">Solicitar acceso</a>
+                            <button onclick="openModal('docente')" class="w-full text-xs text-purple-400 hover:text-white border border-purple-500/30 rounded py-2 transition-colors">❓ Ver Preguntas Frecuentes</button>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </section>
 
+        <section class="py-12 bg-slate-800/30">
+             <div class="max-w-6xl mx-auto px-4 relative z-10">
+                 <div class="mb-8 flex items-center gap-3">
+                     <span class="text-xl">🇪🇸</span><h3 class="text-xl font-bold text-white tracking-wide">Zona Escolar España</h3><div class="h-px bg-white/10 flex-grow"></div>
+                 </div>
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-aiva-surface border border-white/10 rounded-2xl p-6 hover:border-yellow-500/50 transition-all flex flex-col">
+                        <div class="mb-4"><span class="text-3xl">🧸</span><h3 class="text-xl font-bold text-white mt-2">Primaria España</h3></div>
+                        <p class="text-gray-400 text-sm mb-6 flex-grow">Refuerzo de asignaturas, matemáticas y lengua con lenguaje adaptado al currículo español.</p>
+                        <div class="mt-auto">
+                            <a href="https://wa.me/51952225123?text=Hola%2C%20vengo%20desde%20la%20web.%20Solicito%20acceso%3A%20AIVA-Study%20Primaria%20(ES)%20Nombre%3A---%20Correo%3A---" target="_blank" class="block text-center w-full py-3 px-4 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-lg mb-3">Solicitar acceso</a>
+                            <button onclick="openModal('primaria_es')" class="w-full text-xs text-yellow-400 hover:text-white border border-yellow-500/30 rounded py-2 transition-colors">❓ Ver Preguntas Frecuentes</button>
+                        </div>
+                    </div>
+                    <div class="bg-aiva-surface border border-white/10 rounded-2xl p-6 hover:border-yellow-500/50 transition-all flex flex-col">
+                        <div class="mb-4"><span class="text-3xl">📚</span><h3 class="text-xl font-bold text-white mt-2">Secundaria (ESO)</h3></div>
+                        <p class="text-gray-400 text-sm mb-6 flex-grow">Apoyo paso a paso para la ESO. Repasos y preparación de exámenes con lenguaje claro.</p>
+                        <div class="mt-auto">
+                            <a href="https://wa.me/51952225123?text=Hola%2C%20vengo%20desde%20la%20web.%20Solicito%20acceso%3A%20AIVA-Study%20ESO%20(ES)%20Nombre%3A---%20Correo%3A---" target="_blank" class="block text-center w-full py-3 px-4 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-lg mb-3">Solicitar acceso</a>
+                            <button onclick="openModal('eso_es')" class="w-full text-xs text-yellow-400 hover:text-white border border-yellow-500/30 rounded py-2 transition-colors">❓ Ver Preguntas Frecuentes</button>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </section>
+
+        <section class="py-12 relative">
+             <div class="max-w-6xl mx-auto px-4 relative z-10">
+                 <div class="mb-8 flex items-center gap-3">
+                     <span class="text-xl">💼</span><h3 class="text-xl font-bold text-white tracking-wide">Zona Profesionales</h3><div class="h-px bg-white/10 flex-grow"></div>
+                 </div>
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-aiva-surface border border-white/10 rounded-2xl p-6 hover:border-blue-500/50 transition-all flex flex-col">
+                        <div class="mb-4"><span class="text-3xl">🏫</span><h3 class="text-xl font-bold text-white mt-2">AIVA-Gestión</h3></div>
+                        <p class="text-gray-400 text-sm mb-6 flex-grow">Para directores. Gestión escolar, documentos oficiales y toma de decisiones.</p>
+                        <div class="mt-auto">
+                            <a href="https://wa.me/51952225123?text=Hola%2C%20vengo%20desde%20la%20web.%20Solicito%20acceso%3A%20AIVA-Gestion%20Nombre%3A---%20Correo%3A---" target="_blank" class="block text-center w-full py-3 px-4 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-lg mb-3">Solicitar acceso</a>
+                            <button onclick="openModal('gestion')" class="w-full text-xs text-blue-400 hover:text-white border border-blue-500/30 rounded py-2 transition-colors">❓ Ver Preguntas Frecuentes</button>
+                        </div>
+                    </div>
+                    <div class="bg-aiva-surface border border-white/10 rounded-2xl p-6 hover:border-teal-500/50 transition-all flex flex-col">
+                        <div class="mb-4"><span class="text-3xl">🏥</span><h3 class="text-xl font-bold text-white mt-2">AIVA-Salud</h3></div>
+                        <p class="text-gray-400 text-sm mb-6 flex-grow">Para enfermería. Consultas de triaje, planes de cuidado y protocolos.</p>
+                        <div class="mt-auto">
+                            <a href="https://wa.me/51952225123?text=Hola%2C%20vengo%20desde%20la%20web.%20Solicito%20acceso%3A%20AIVA-Salud%20Nombre%3A---%20Correo%3A---" target="_blank" class="block text-center w-full py-3 px-4 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-lg mb-3">Solicitar acceso</a>
+                            <button onclick="openModal('salud')" class="w-full text-xs text-teal-400 hover:text-white border border-teal-500/30 rounded py-2 transition-colors">❓ Ver Preguntas Frecuentes</button>
+                        </div>
+                    </div>
+                    <div class="bg-aiva-surface border border-white/10 rounded-2xl p-6 hover:border-pink-500/50 transition-all flex flex-col">
+                        <div class="mb-4"><span class="text-3xl">🧠</span><h3 class="text-xl font-bold text-white mt-2">AIVA-Psico</h3></div>
+                        <p class="text-gray-400 text-sm mb-6 flex-grow">Para psicólogos. Ayuda en informes, referencias bibliográficas y organización.</p>
+                        <div class="mt-auto">
+                            <a href="https://wa.me/51952225123?text=Hola%2C%20vengo%20desde%20la%20web.%20Solicito%20acceso%3A%20AIVA-Psico%20Nombre%3A---%20Correo%3A---" target="_blank" class="block text-center w-full py-3 px-4 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-lg mb-3">Solicitar acceso</a>
+                            <button onclick="openModal('psico')" class="w-full text-xs text-pink-400 hover:text-white border border-pink-500/30 rounded py-2 transition-colors">❓ Ver Preguntas Frecuentes</button>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </section>
+    </main>
+
+    <main id="view-negocios" class="hidden-section bg-slate-900 min-h-screen transition-opacity duration-300">
+        <section class="py-32 relative">
+            <div class="max-w-6xl mx-auto px-4">
+                <div class="flex flex-col md:flex-row gap-12 items-start">
+                    <div class="w-full md:w-2/3">
+                        <div class="inline-block px-3 py-1 rounded border border-slate-600 text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">Consultoría Estratégica</div>
+                        <h2 class="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">Diagnóstico Estratégico <br>para Negocios Locales</h2>
+                        <p class="text-slate-300 text-lg leading-relaxed mb-8 max-w-2xl">Antes de pensar en tecnología, analizamos cómo gestionas tus procesos actuales para detectar fugas operativas.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
+                            <div class="flex gap-4 p-4 rounded bg-slate-800/50 border border-slate-800"><div class="text-2xl">📋</div><div><h4 class="font-bold text-white text-sm">1. Análisis de Proceso</h4><p class="text-xs text-slate-400 mt-1">Revisión del flujo de atención.</p></div></div>
+                            <div class="flex gap-4 p-4 rounded bg-slate-800/50 border border-slate-800"><div class="text-2xl">🔍</div><div><h4 class="font-bold text-white text-sm">2. Detección de Fugas</h4><p class="text-xs text-slate-400 mt-1">Dónde se pierden los interesados.</p></div></div>
+                        </div>
+                        <div class="mb-10 border-l border-slate-700 pl-6 ml-2">
+                            <h3 class="text-lg font-bold text-white mb-3 flex items-center gap-2"><span class="text-blue-400">💎</span> Solución a Medida: Asistentes (Gems)</h3>
+                            <p class="text-slate-400 text-sm mb-4 leading-relaxed max-w-xl">Una vez ordenado el proceso, configuramos <strong>Asistentes Inteligentes</strong> específicos para tu negocio.</p>
+                        </div>
+                        <a href="https://wa.me/51952225123?text=Hola%20Willy%2C%20quiero%20evaluar%20si%20un%20diagnóstico%20estratégico%20me%20serviría." target="_blank" class="inline-flex items-center gap-3 px-8 py-4 bg-slate-200 text-slate-900 font-bold rounded-lg hover:bg-white transition-colors shadow-lg"><span>💬</span> Solicitar Evaluación</a>
+                    </div>
                     <div class="w-full md:w-1/3 border-l border-slate-800 pl-0 md:pl-12 hidden md:block opacity-60">
                         <h4 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-6">Enfoque del Servicio</h4>
                         <ul class="space-y-6 text-sm text-slate-400">
-                            <li class="flex items-start gap-3">
-                                <span class="text-slate-600">❌</span>
-                                <span>No ofrecemos software mágico ni promesas de ventas automáticas.</span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <span class="text-slate-600">❌</span>
-                                <span>No es para emprendimientos en "fase de idea", solo negocios en marcha.</span>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <span class="text-green-500">✅</span>
-                                <span class="text-slate-300">Para dueños que buscan orden, control y tecnología con criterio.</span>
-                            </li>
+                            <li class="flex items-start gap-3"><span class="text-slate-600">❌</span><span>No ofrecemos software mágico.</span></li>
+                            <li class="flex items-start gap-3"><span class="text-green-500">✅</span><span>Para dueños que buscan orden y control.</span></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
-
-        <section id="como-trabajamos" class="py-20 bg-slate-800 border-t border-white/5 relative">
+        <section class="py-20 bg-slate-800 border-t border-white/5 relative">
             <div class="max-w-6xl mx-auto px-4">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl font-bold text-white mb-4">Cómo trabajamos en AIVA</h2>
-                    <p class="text-slate-400 max-w-2xl mx-auto">
-                        Educación, procesos e inteligencia artificial sin soluciones mágicas.
-                    </p>
-                </div>
-
+                <div class="text-center mb-16"><h2 class="text-3xl font-bold text-white mb-4">Cómo trabajamos</h2><p class="text-slate-400">Sin soluciones mágicas. Estrategia y Tecnología.</p></div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="p-8 rounded-xl bg-white/5 border border-white/5">
-                        <div class="text-3xl mb-4">🧠</div>
-                        <h3 class="text-xl font-bold text-white mb-3">1. Primero entendemos</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed">Sin diagnóstico, no hay acción. Analizamos el contexto real antes de proponer nada.</p>
-                    </div>
-                    <div class="p-8 rounded-xl bg-white/5 border border-white/5">
-                        <div class="text-3xl mb-4">⚙️</div>
-                        <h3 class="text-xl font-bold text-white mb-3">2. Diseñamos la solución</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed">Configuramos procesos y Gems a medida. Tecnología alineada a objetivos, no a modas.</p>
-                    </div>
-                    <div class="p-8 rounded-xl bg-white/5 border border-white/5">
-                        <div class="text-3xl mb-4">🤝</div>
-                        <h3 class="text-xl font-bold text-white mb-3">3. Acompañamos</h3>
-                        <p class="text-sm text-slate-400 leading-relaxed">Claridad humana por encima de la complejidad técnica. Buscamos utilidad real.</p>
-                    </div>
+                    <div class="p-8 rounded-xl bg-white/5"><div class="text-3xl mb-4">🧠</div><h3 class="text-xl font-bold text-white">1. Entendemos</h3></div>
+                    <div class="p-8 rounded-xl bg-white/5"><div class="text-3xl mb-4">⚙️</div><h3 class="text-xl font-bold text-white">2. Diseñamos</h3></div>
+                    <div class="p-8 rounded-xl bg-white/5"><div class="text-3xl mb-4">🤝</div><h3 class="text-xl font-bold text-white">3. Acompañamos</h3></div>
                 </div>
             </div>
         </section>
@@ -279,68 +248,175 @@
     <footer class="bg-black py-12 text-center text-slate-600 text-xs border-t border-white/5">
         <div class="max-w-7xl mx-auto px-4 flex flex-col items-center">
             <img src="logo-aiva.png" alt="AIVA Logo" class="h-6 w-auto opacity-50 mb-4 grayscale hover:grayscale-0 transition-all">
-            <p class="mb-2">Atención y acompañamiento remoto para negocios en todo el Perú.</p>
-            <p class="text-slate-700">© 2026 AIVA. Educación Tecnológica & Estrategia.</p>
+            <p class="mb-2">Atención nacional e internacional.</p>
+            <p class="text-slate-700">© 2026 AIVA.</p>
         </div>
     </footer>
 
+    <div id="faq-modal" class="fixed inset-0 z-[60] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+                <div class="relative transform overflow-hidden rounded-2xl bg-aiva-surface border border-white/10 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-slate-800/50 px-4 py-4 border-b border-white/5 flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-white" id="modal-title">Preguntas Frecuentes</h3>
+                        <button onclick="closeModal()" class="text-gray-400 hover:text-white text-2xl leading-none">&times;</button>
+                    </div>
+                    <div class="px-4 py-6 max-h-[60vh] overflow-y-auto modal-scroll" id="modal-content">
+                        </div>
+                    <div class="bg-slate-800/50 px-4 py-3 flex justify-end">
+                        <button type="button" class="inline-flex justify-center rounded-lg bg-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/20" onclick="closeModal()">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // --- 1. Lógica de Navegación (3 Vistas) ---
         const viewKids = document.getElementById('view-kids');
+        const viewAsistentes = document.getElementById('view-asistentes');
         const viewNegocios = document.getElementById('view-negocios');
         const btnKids = document.getElementById('nav-btn-kids');
+        const btnAsistentes = document.getElementById('nav-btn-asistentes');
         const btnNegocios = document.getElementById('nav-btn-negocios');
         const mobileMenu = document.getElementById('mobile-menu');
 
         function switchView(viewName) {
             mobileMenu.classList.add('hidden');
+            [viewKids, viewAsistentes, viewNegocios].forEach(v => v.classList.add('hidden-section'));
+            
+            // Reset styles
+            const inactive = 'px-4 py-2 rounded-full text-sm font-medium transition-all text-gray-400 hover:text-white hover:bg-white/5 border border-transparent';
+            [btnKids, btnAsistentes, btnNegocios].forEach(b => b.className = inactive);
 
             if (viewName === 'negocios') {
-                viewKids.classList.add('hidden-section');
                 viewNegocios.classList.remove('hidden-section');
-                
-                btnNegocios.classList.add('bg-white/10', 'text-white');
-                btnNegocios.classList.remove('text-gray-400');
-                
-                btnKids.classList.remove('bg-white/10', 'text-brand-kids');
-                btnKids.classList.add('text-gray-400');
-                
+                btnNegocios.className = 'px-4 py-2 rounded-full text-sm font-medium transition-all text-white bg-white/10 border border-transparent';
                 history.pushState(null, null, '#negocios');
-                window.scrollTo(0, 0);
+            } else if (viewName === 'asistentes') {
+                viewAsistentes.classList.remove('hidden-section');
+                btnAsistentes.className = 'px-4 py-2 rounded-full text-sm font-medium transition-all text-purple-400 bg-purple-500/10 border border-purple-500/30';
+                history.pushState(null, null, '#asistentes');
             } else {
-                viewNegocios.classList.add('hidden-section');
                 viewKids.classList.remove('hidden-section');
-                
-                btnKids.classList.add('bg-white/10', 'text-brand-kids');
-                btnKids.classList.remove('text-gray-400');
-                
-                btnNegocios.classList.remove('bg-white/10', 'text-white');
-                btnNegocios.classList.add('text-gray-400');
-                
+                btnKids.className = 'px-4 py-2 rounded-full text-sm font-medium transition-all text-brand-kids bg-white/10 border border-transparent';
                 history.pushState(null, null, '#kids');
-                window.scrollTo(0, 0);
             }
+            window.scrollTo(0, 0);
         }
 
         window.addEventListener('load', () => {
-            if (window.location.hash === '#negocios') {
-                switchView('negocios');
-            } else {
-                switchView('kids');
-            }
+            const hash = window.location.hash;
+            if(hash === '#negocios') switchView('negocios');
+            else if(hash === '#asistentes') switchView('asistentes');
+            else switchView('kids');
         });
 
-        window.addEventListener('popstate', () => {
-            if (window.location.hash === '#negocios') {
-                switchView('negocios');
-            } else {
-                switchView('kids');
-            }
-        });
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
 
-        const btnMenu = document.getElementById('mobile-menu-btn');
-        btnMenu.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+        // --- 2. BASE DE DATOS DE FAQs (Contenido Real de PDFs) ---
+        const faqData = {
+            'primaria_pe': [
+                {q: "¿Qué es AIVA-Study Primaria?", a: "Es un asistente educativo digital que acompaña a los niños de 1.º a 6.º de primaria. Ayuda a comprender tareas, reforzar clases y organizar actividades con un lenguaje sencillo y peruano."},
+                {q: "¿Reemplaza al profesor o academia?", a: "No. Es una herramienta de apoyo para el estudio en casa, no sustituye la enseñanza escolar."},
+                {q: "¿Qué cursos refuerza?", a: "Comunicación, Matemática, Ciencia y Ambiente, Personal Social, Religión, Inglés básico y Tecnología."},
+                {q: "¿Sirve para hacer la tarea?", a: "El asistente guía, explica y da ejemplos, pero NO hace la tarea por el niño. Fomenta el aprendizaje, no el copiado."},
+                {q: "¿Es seguro para niños?", a: "Sí. Está diseñado con enfoque educativo y filtros de seguridad. Se recomienda supervisión adulta en grados menores (1.º-3.º)."},
+                {q: "¿Tiene un costo?", a: "Sí, funciona mediante suscripción mensual o anual."}
+            ],
+            'primaria_es': [
+                {q: "¿Sirve para Primaria en España?", a: "Sí. Esta versión está adaptada al currículo español de Primaria, utilizando términos y metodologías locales."},
+                {q: "¿Qué asignaturas cubre?", a: "Matemáticas, Lengua Castellana, Ciencias de la Naturaleza, Ciencias Sociales e Inglés."},
+                {q: "¿Cómo ayuda a mi hijo?", a: "Le explica conceptos difíciles con ejemplos cotidianos, le ayuda a repasar para exámenes y a organizar sus deberes."},
+                {q: "¿Tiene coste?", a: "Sí, es un servicio de suscripción. Consultar planes por WhatsApp."}
+            ],
+            'eso_es': [
+                {q: "¿Qué es AIVA-Study ESO?", a: "Asistente para estudiantes de Secundaria (ESO) en España. Ayuda a estudiar, preparar exámenes y trabajos."},
+                {q: "¿Ayuda con los deberes?", a: "Te guía paso a paso para que entiendas cómo resolverlos tú mismo. No te da la respuesta directa sin explicación."},
+                {q: "¿Para qué cursos sirve?", a: "Cubre de 1.º a 4.º de la ESO en asignaturas como Mates, Lengua, Física y Química, Biología, Geografía e Historia."},
+                {q: "¿Tiene coste?", a: "Sí, funciona por suscripción."}
+            ],
+            'docente': [
+                {q: "¿Qué hace AIVA-Docente?", a: "Ayuda a crear sesiones de aprendizaje, rúbricas de evaluación, exámenes y material didáctico en segundos."},
+                {q: "¿Se adapta al currículo nacional?", a: "Sí, conoce las competencias y capacidades del CNEB (Perú) o el marco curricular que le indiques."},
+                {q: "¿Es gratuito?", a: "Tiene un costo de suscripción profesional."}
+            ],
+            'gestion': [
+                {q: "¿Para quién es AIVA-Gestión?", a: "Para directores, subdirectores y coordinadores que necesitan redactar documentos oficiales (oficios, reglamentos, planes anuales)."},
+                {q: "¿Es confidencial?", a: "Totalmente. Te ayuda con la redacción y estructura, tú pones los datos específicos."},
+                {q: "¿Qué documentos puede hacer?", a: "Oficios múltiples, cartas de amonestación, PEI, PAT, PCI (partes teóricas y estructuras)."}
+            ],
+            'salud': [
+                {q: "¿Qué funciones tiene AIVA-Salud?", a: "Asiste en la redacción de notas de enfermería (SOAPIE), planes de cuidados (PAE) y consultas rápidas de protocolos."},
+                {q: "¿Reemplaza el juicio clínico?", a: "Nunca. Es una herramienta de apoyo administrativo y teórico. La decisión final siempre es del profesional."},
+                {q: "¿Puedo poner datos de pacientes?", a: "No. Por ética, nunca ingreses nombres reales. Usa el asistente para el formato y la teoría."}
+            ],
+            'psico': [
+                {q: "¿Cómo ayuda a los psicólogos?", a: "Ayuda a redactar informes psicológicos (anamnesis, evaluación), buscar referencias bibliográficas y organizar sesiones."},
+                {q: "¿Es ético usarlo?", a: "Sí, si se usa como asistente de redacción. No sustituye tu análisis profesional ni el diagnóstico."},
+                {q: "¿Privacidad de pacientes?", a: "Crucial: Nunca introduzcas nombres o datos identificables de pacientes. Úsalo para estructurar casos anónimos."}
+            ]
+        };
+
+        // Combino las preguntas de secundaria de los PDFs para el botón de AIVA-Study general si se usa allí
+        // Pero en las tarjetas usé IDs específicos. Para "AIVA-Study" genérico en Perú, mostraré ambas tabs si fuera necesario, 
+        // pero aquí he separado por botones.
+        // Voy a añadir la data que faltaba de Secundaria Perú (del PDF) a la key 'primaria_pe' no, sino crear una nueva si hiciera falta, 
+        // pero en el HTML llamo a 'primaria_pe' para la tarjeta AIVA-Study.
+        // CORRECCIÓN: La tarjeta AIVA-Study (Perú) es para Primaria Y Secundaria.
+        // Voy a fusionar las preguntas de Secundaria Perú en la data que muestra esa tarjeta.
+        
+        faqData['primaria_pe'] = [
+            ...faqData['primaria_pe'],
+            {q: "--- SECUNDARIA ---", a: ""}, // Separador visual
+            {q: "¿Qué es AIVA-Study Secundaria?", a: "Apoyo para 1.º a 5.º de secundaria. Refuerza Matemática, Física, Química, Comunicación y más."},
+            {q: "¿Ayuda en monografías?", a: "Sí. Ayuda a estructurar índices, buscar bibliografía y mejorar redacción."},
+            {q: "¿Resuelve ejercicios de ciencias?", a: "Explica la teoría y el procedimiento paso a paso, pero el cálculo final lo hace el estudiante."},
+            {q: "¿Prepara para la universidad?", a: "Es excelente para repasar temas clave y practicar con bancos de preguntas."}
+        ];
+
+        // --- 3. Lógica del MODAL ---
+        const modal = document.getElementById('faq-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalContent = document.getElementById('modal-content');
+
+        function openModal(category) {
+            const data = faqData[category];
+            if (!data) return;
+
+            // Título dinámico
+            const titles = {
+                'primaria_pe': 'Preguntas Frecuentes (Perú)',
+                'primaria_es': 'Preguntas Frecuentes (España)',
+                'eso_es': 'Preguntas Frecuentes (ESO)',
+                'docente': 'AIVA-Docente',
+                'gestion': 'AIVA-Gestión',
+                'salud': 'AIVA-Salud',
+                'psico': 'AIVA-Psico'
+            };
+            modalTitle.innerText = titles[category] || 'Preguntas Frecuentes';
+
+            // Generar HTML de acordeón
+            modalContent.innerHTML = data.map(item => {
+                if(item.q.startsWith("---")) return `<div class="py-2 text-center font-bold text-brand-kids mt-4 border-t border-white/10">${item.q.replace(/-/g,'')}</div>`;
+                return `
+                <div class="mb-3 bg-white/5 rounded-lg border border-white/5 overflow-hidden">
+                    <button class="w-full text-left px-4 py-3 font-medium text-white flex justify-between items-center hover:bg-white/5 transition-colors" onclick="this.nextElementSibling.classList.toggle('hidden');">
+                        ${item.q} <span class="text-brand-kids text-xl">+</span>
+                    </button>
+                    <div class="hidden px-4 pb-4 text-sm text-slate-300 border-t border-white/5 pt-2">
+                        ${item.a}
+                    </div>
+                </div>`;
+            }).join('');
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+        }
     </script>
 </body>
 </html>

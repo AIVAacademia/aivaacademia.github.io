@@ -139,7 +139,7 @@
         <section id="lista-peru" class="py-16 relative scroll-mt-36 bg-zone-peru">
              <div class="max-w-6xl mx-auto px-4 relative z-10">
                  <div class="mb-6 flex items-center gap-3"><span class="text-xl">🇵🇪</span><h3 class="text-lg font-bold text-white tracking-wide">Zona Escolar Perú</h3><div class="h-px bg-purple-500/30 flex-grow"></div></div>
-                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="bg-aiva-surface border border-purple-500/20 rounded-2xl p-6 hover:border-purple-500/50 transition-all flex flex-col shadow-lg shadow-purple-900/10">
                         <div class="mb-4"><span class="text-3xl">🧠</span><h3 class="text-xl font-bold text-white mt-2">AIVA-Study (Prim/Sec)</h3></div>
                         <p class="text-gray-400 text-sm mb-6 flex-grow">Apoyo para estudiantes peruanos. Estudio paso a paso, repasos y acompañamiento.</p>
@@ -170,6 +170,22 @@
                         <div class="mt-auto">
                             <a href="https://wa.me/51952225123?text=Hola%2C%20vengo%20desde%20la%20web.%20Solicito%20acceso%3A%20AIVA-Bio-Edu%20Nombre%3A---%20Correo%3A---" target="_blank" class="block text-center w-full py-3 px-4 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-lg mb-3">Solicitar acceso</a>
                             <button onclick="openModal('bio_edu_pe')" class="w-full text-xs text-purple-400 hover:text-white border border-purple-500/30 rounded py-2 transition-colors">❓ Ver Preguntas Frecuentes</button>
+                        </div>
+                    </div>
+                    <div class="bg-aiva-surface border border-purple-500/20 rounded-2xl p-6 hover:border-purple-500/50 transition-all flex flex-col shadow-lg shadow-purple-900/10">
+                        <div class="mb-4"><span class="text-3xl">📜</span><h3 class="text-xl font-bold text-white mt-2">AIVA-Sociales-Edu</h3></div>
+                        <p class="text-gray-400 text-sm mb-6 flex-grow">Asistente para Ciencias Sociales, Historia y Geografía (EBR). Fomenta el pensamiento crítico y la comprensión del entorno social.</p>
+                        <div class="mt-auto">
+                            <a href="https://wa.me/51952225123?text=Hola%2C%20vengo%20desde%20la%20web.%20Solicito%20acceso%3A%20AIVA-Sociales-Edu%20Nombre%3A---%20Correo%3A---" target="_blank" class="block text-center w-full py-3 px-4 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-lg mb-3">Solicitar acceso</a>
+                            <button onclick="openModal('sociales_edu_pe')" class="w-full text-xs text-purple-400 hover:text-white border border-purple-500/30 rounded py-2 transition-colors">❓ Ver Preguntas Frecuentes</button>
+                        </div>
+                    </div>
+                    <div class="bg-aiva-surface border border-purple-500/20 rounded-2xl p-6 hover:border-purple-500/50 transition-all flex flex-col shadow-lg shadow-purple-900/10">
+                        <div class="mb-4"><span class="text-3xl">🗣️</span><h3 class="text-xl font-bold text-white mt-2">AIVA-Comunicación-Edu</h3></div>
+                        <p class="text-gray-400 text-sm mb-6 flex-grow">Asistente para el área de Comunicación (EBR). Potencia la comprensión lectora, redacción y expresión oral.</p>
+                        <div class="mt-auto">
+                            <a href="https://wa.me/51952225123?text=Hola%2C%20vengo%20desde%20la%20web.%20Solicito%20acceso%3A%20AIVA-Comunicaci%C3%B3n-Edu%20Nombre%3A---%20Correo%3A---" target="_blank" class="block text-center w-full py-3 px-4 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold rounded-lg mb-3">Solicitar acceso</a>
+                            <button onclick="openModal('comunicacion_edu_pe')" class="w-full text-xs text-purple-400 hover:text-white border border-purple-500/30 rounded py-2 transition-colors">❓ Ver Preguntas Frecuentes</button>
                         </div>
                     </div>
                  </div>
@@ -267,6 +283,9 @@
                     <button onclick="toggleFaq('secundaria')" id="btn-secundaria" class="px-3 py-1.5 rounded-full text-xs font-bold bg-slate-700 text-slate-400 hover:bg-slate-600 transition-all">🧬 Secundaria (PE)</button>
                     <button onclick="toggleFaq('aritmetica')" id="btn-aritmetica" class="px-3 py-1.5 rounded-full text-xs font-bold bg-slate-700 text-slate-400 hover:bg-slate-600 transition-all">🧮 AritMática (PE)</button>
                     <button onclick="toggleFaq('bio_edu')" id="btn-bio_edu" class="px-3 py-1.5 rounded-full text-xs font-bold bg-slate-700 text-slate-400 hover:bg-slate-600 transition-all">🧬 Biología (PE)</button>
+                    <button onclick="toggleFaq('sociales_edu')" id="btn-sociales_edu" class="px-3 py-1.5 rounded-full text-xs font-bold bg-slate-700 text-slate-400 hover:bg-slate-600 transition-all">📜 Sociales (PE)</button>
+                    <button onclick="toggleFaq('comunicacion_edu')" id="btn-comunicacion_edu" class="px-3 py-1.5 rounded-full text-xs font-bold bg-slate-700 text-slate-400 hover:bg-slate-600 transition-all">🗣️ Comunicación (PE)</button>
+                    
                     <button onclick="toggleFaq('espana')" id="btn-espana" class="px-3 py-1.5 rounded-full text-xs font-bold bg-slate-700 text-slate-400 hover:bg-slate-600 transition-all">🇪🇸 España</button>
                     <button onclick="toggleFaq('uni')" id="btn-uni" class="px-3 py-1.5 rounded-full text-xs font-bold bg-slate-700 text-slate-400 hover:bg-slate-600 transition-all">🎓 Universidad</button>
                     <button onclick="toggleFaq('pro')" id="btn-pro" class="px-3 py-1.5 rounded-full text-xs font-bold bg-slate-700 text-slate-400 hover:bg-slate-600 transition-all">💼 Profesionales</button>
@@ -424,10 +443,27 @@
                 {q: "¿Hay beneficio por recomendar el asistente?", a: referralGeneralAnswer},
                 {q: "¿Puedo acumular meses gratuitos ilimitadamente?", a: referralLimitAnswer}
             ],
-            // NUEVO: Bio-Edu
             'bio_edu_pe': [
                 {q: "¿Qué es AIVA-Bio-Edu?", a: "Es un asistente digital especializado en Biología para la Educación Básica Regular (EBR) del Perú. Actúa como copiloto pedagógico para el docente."},
                 {q: "¿Cómo ayuda al docente?", a: "Facilita la planificación de sesiones, ofrece explicaciones claras, ayuda en la adaptación inclusiva de contenidos y genera ideas para recursos didácticos."},
+                {q: "¿Tiene un costo?", a: costAnswer},
+                {q: "--- POLÍTICA DE REFERIDOS ---", a: ""},
+                {q: "¿Hay beneficio por recomendar el asistente?", a: referralGeneralAnswer},
+                {q: "¿Puedo acumular meses gratuitos ilimitadamente?", a: referralLimitAnswer}
+            ],
+            // NUEVO: Sociales-Edu
+            'sociales_edu_pe': [
+                {q: "¿Qué es AIVA-Sociales-Edu?", a: "Asistente digital para el área de Ciencias Sociales (Historia, Geografía, Economía) en EBR Perú."},
+                {q: "¿Cuál es su enfoque?", a: "Fomentar el pensamiento crítico, la comprensión del entorno social y el análisis de fuentes históricas."},
+                {q: "¿Tiene un costo?", a: costAnswer},
+                {q: "--- POLÍTICA DE REFERIDOS ---", a: ""},
+                {q: "¿Hay beneficio por recomendar el asistente?", a: referralGeneralAnswer},
+                {q: "¿Puedo acumular meses gratuitos ilimitadamente?", a: referralLimitAnswer}
+            ],
+            // NUEVO: Comunicación-Edu
+            'comunicacion_edu_pe': [
+                {q: "¿Qué es AIVA-Comunicación-Edu?", a: "Asistente especializado en el área de Comunicación para EBR Perú."},
+                {q: "¿En qué ayuda?", a: "Potencia la comprensión lectora, la producción de textos (redacción) y el desarrollo de la expresión oral."},
                 {q: "¿Tiene un costo?", a: costAnswer},
                 {q: "--- POLÍTICA DE REFERIDOS ---", a: ""},
                 {q: "¿Hay beneficio por recomendar el asistente?", a: referralGeneralAnswer},
@@ -521,7 +557,9 @@
             if (!data) return;
             const titles = { 
                 'aritmetica_pe': 'AIVA-AritMática PE',
-                'bio_edu_pe': 'AIVA-Bio-Edu (Biología)', // Título para Bio-Edu
+                'bio_edu_pe': 'AIVA-Bio-Edu (Biología)',
+                'sociales_edu_pe': 'AIVA-Sociales-Edu', // Título Sociales
+                'comunicacion_edu_pe': 'AIVA-Comunicación-Edu', // Título Comunicación
                 'primaria_es': 'Primaria (España)', 
                 'eso_es': 'ESO (España)', 
                 'studyu': 'Universitario', 
@@ -560,7 +598,9 @@
                 'primaria': {key: 'primaria_pe'},
                 'secundaria': {key: 'secundaria_pe'},
                 'aritmetica': {key: 'aritmetica_pe'},
-                'bio_edu': {key: 'bio_edu_pe'}, // Nueva entrada para el botón inferior
+                'bio_edu': {key: 'bio_edu_pe'},
+                'sociales_edu': {key: 'sociales_edu_pe'}, // Nueva entrada
+                'comunicacion_edu': {key: 'comunicacion_edu_pe'}, // Nueva entrada
                 'espana': [{key: 'primaria_es', title: 'Primaria'}, {key: 'eso_es', title: 'Secundaria'}],
                 'uni': {key: 'studyu'},
                 'pro': [{key: 'docente', title: 'Docente'}, {key: 'teachlang', title: 'Pedagogía'}, {key: 'gestion', title: 'Gestión'}, {key: 'salud', title: 'Salud'}, {key: 'psico', title: 'Psico'}],

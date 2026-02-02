@@ -84,6 +84,12 @@
         .chat-ai p { margin-bottom: 0.5em; }
         .chat-ai ul { list-style-type: disc; margin-left: 1.2em; margin-bottom: 0.5em; }
         .chat-ai strong { color: #1e3a8a; font-weight: 600; }
+        
+        /* Tab Styles for Plan Maestro */
+        .tab-btn.active { border-bottom: 2px solid #1e3a8a; color: #1e3a8a; font-weight: 700; background-color: #eff6ff; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fade-in 0.3s ease-in; }
+        @keyframes fade-in { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="bg-academy-bg text-slate-700 font-sans antialiased relative">
@@ -291,24 +297,193 @@
             </div>
         </section>
 
-        <!-- 5. TIMELINE DEL PLAN MAESTRO -->
+        <!-- 5. TIMELINE DEL PLAN MAESTRO (ACTUALIZADO DETALLADO) -->
         <section class="py-20 bg-white">
             <div class="max-w-6xl mx-auto px-4">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-serif font-bold text-slate-800">El Camino Anual</h2>
-                    <p class="text-slate-500">Un proceso estructurado en 4 trimestres para resultados reales.</p>
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-serif font-bold text-slate-800">Plan Maestro 2026 🗺️</h2>
+                    <p class="text-slate-500">Un viaje de 10 meses desde los cimientos hasta la maestría.</p>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <div class="relative p-6 bg-slate-50 rounded-xl border border-slate-200"><div class="text-4xl font-black text-slate-200 absolute top-4 right-4">T1</div><h4 class="text-lg font-bold text-academy-primary mb-2">Cimientos</h4><p class="text-sm text-slate-600">Fundamentos digitales, ofimática esencial e introducción a la Identidad IA.</p></div>
-                    <div class="relative p-6 bg-slate-50 rounded-xl border border-slate-200"><div class="text-4xl font-black text-slate-200 absolute top-4 right-4">T2</div><h4 class="text-lg font-bold text-academy-primary mb-2">Datos & Voz</h4><p class="text-sm text-slate-600">Gestión de información (Excel/Sheets) y Oratoria Digital para presentar ideas.</p></div>
-                    <div class="relative p-6 bg-slate-50 rounded-xl border border-slate-200"><div class="text-4xl font-black text-slate-200 absolute top-4 right-4">T3</div><h4 class="text-lg font-bold text-academy-primary mb-2">Producción</h4><p class="text-sm text-slate-600">Creación de páginas web, edición de video y contenido multimedia.</p></div>
-                    <div class="relative p-6 bg-slate-900 rounded-xl border border-slate-800 text-white shadow-xl"><div class="text-4xl font-black text-slate-700 absolute top-4 right-4">T4</div><h4 class="text-lg font-bold text-academy-gold mb-2">Graduación</h4><p class="text-sm text-slate-400">Desarrollo del Portafolio Profesional final y presentación ante padres.</p></div>
+                <!-- Pestañas de Navegación -->
+                <div class="flex flex-wrap justify-center gap-2 mb-8 border-b border-slate-200 pb-1">
+                    <button onclick="switchTab('t1')" id="tab-t1" class="tab-btn active px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 transition-colors rounded-t-lg">Trimestre 1: Despertar</button>
+                    <button onclick="switchTab('t2')" id="tab-t2" class="tab-btn px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 transition-colors rounded-t-lg">Trimestre 2: Datos</button>
+                    <button onclick="switchTab('t3')" id="tab-t3" class="tab-btn px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 transition-colors rounded-t-lg">Trimestre 3: Mundos</button>
+                    <button onclick="switchTab('t4')" id="tab-t4" class="tab-btn px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 transition-colors rounded-t-lg">Trimestre 4: Master</button>
                 </div>
+
+                <!-- Contenido T1 -->
+                <div id="content-t1" class="tab-content active bg-slate-50 rounded-xl p-6 border border-slate-200 shadow-sm">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-academy-primary">EL DESPERTAR DE LOS CREADORES</h3>
+                            <p class="text-sm text-slate-500">Marzo - Mayo • Windows, Word/Docs, Canva, IA</p>
+                        </div>
+                        <div class="text-4xl font-black text-slate-200">T1</div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-4 rounded border border-slate-100">
+                            <h4 class="font-bold text-slate-700 text-sm mb-2 border-b pb-1">Marzo: Cimientos</h4>
+                            <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
+                                <li>S01: Despertar del Cuartel (Orden)</li>
+                                <li>S02: Mi Amigo AIVOT (Identidad)</li>
+                                <li>S03: Espejo Mágico (Avatares)</li>
+                                <li>S04: Refinando el Hechizo (Prompting)</li>
+                                <li>S05-06: Escudos y Marca Personal</li>
+                                <li>S07: Poder de las Palabras (Docs)</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-4 rounded border border-slate-100">
+                            <h4 class="font-bold text-slate-700 text-sm mb-2 border-b pb-1">Abril: Arte y Verdad</h4>
+                            <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
+                                <li>S09: Magia Fotográfica (Edición)</li>
+                                <li>S10: Cirugía Digital (IA Remove)</li>
+                                <li>S11-12: Carteles y Psicología Color</li>
+                                <li>S13: Sabuesos de Internet (Búsqueda)</li>
+                                <li>S14: Atrapando Mentiras (Fake News)</li>
+                                <li>S15: Mi Primera Noticia</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-4 rounded border border-slate-100">
+                            <h4 class="font-bold text-slate-700 text-sm mb-2 border-b pb-1">Mayo: Arquitectos</h4>
+                            <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
+                                <li>S17-18: Vectores e Iconos</li>
+                                <li>S19: Cuentacuentos con IA</li>
+                                <li>S20-21: Libro de Maravillas (Formatos)</li>
+                                <li>S22: El PDF Maestro</li>
+                                <li class="font-bold text-academy-gold">S24: PROYECTO: AIVA Magazine</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contenido T2 -->
+                <div id="content-t2" class="tab-content bg-slate-50 rounded-xl p-6 border border-slate-200 shadow-sm">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-academy-primary">EL ARQUITECTO DE DATOS</h3>
+                            <p class="text-sm text-slate-500">Junio - Agosto • Excel/Sheets, Slides, Audacity</p>
+                        </div>
+                        <div class="text-4xl font-black text-slate-200">T2</div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-4 rounded border border-slate-100">
+                            <h4 class="font-bold text-slate-700 text-sm mb-2 border-b pb-1">Junio: Dominio Celdas</h4>
+                            <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
+                                <li>S25: Tablero de Ajedrez (Filas/Cols)</li>
+                                <li>S26: Inventario de Juguetes (Datos)</li>
+                                <li>S27: Colores Inteligentes (Formato)</li>
+                                <li>S28: Presupuestos Básicos</li>
+                                <li>S29: Espía de Datos (Filtros)</li>
+                                <li>S30-32: Gráficos y Fórmulas</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-4 rounded border border-slate-100">
+                            <h4 class="font-bold text-slate-700 text-sm mb-2 border-b pb-1">Julio: Historias Brillantes</h4>
+                            <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
+                                <li>S33: Guion del Héroe</li>
+                                <li>S34: Diapositivas de Impacto</li>
+                                <li>S35-36: Transiciones y Animación</li>
+                                <li>S37-38: Cine y Audio en Slides</li>
+                                <li>S39: Ensayando con AIVOT (Oratoria)</li>
+                                <li class="font-bold text-academy-gold">S40: PROYECTO: Charla TED</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-4 rounded border border-slate-100">
+                            <h4 class="font-bold text-slate-700 text-sm mb-2 border-b pb-1">Agosto: Lab de Sonido</h4>
+                            <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
+                                <li>S41: Cazadores de Sonidos</li>
+                                <li>S42: Limpiando el Ruido</li>
+                                <li>S43: Estructura de Podcast</li>
+                                <li>S44: La Voz de AIVOT (Entrevistas)</li>
+                                <li>S46: Mezclador Pro</li>
+                                <li class="font-bold text-academy-gold">S48: Estreno Podcast AIVOLUTION</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contenido T3 -->
+                <div id="content-t3" class="tab-content bg-slate-50 rounded-xl p-6 border border-slate-200 shadow-sm">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-academy-primary">EL CREADOR DE MUNDOS</h3>
+                            <p class="text-sm text-slate-500">Septiembre - Noviembre • Video, Web, Scratch</p>
+                        </div>
+                        <div class="text-4xl font-black text-slate-200">T3</div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-4 rounded border border-slate-100">
+                            <h4 class="font-bold text-slate-700 text-sm mb-2 border-b pb-1">Septiembre: Cine</h4>
+                            <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
+                                <li>S49: Luces, Cámara, ¡Planos!</li>
+                                <li>S50: El Corte Perfecto (Edición)</li>
+                                <li>S51: Efectos Especiales</li>
+                                <li>S52: Títulos que Vuelan</li>
+                                <li>S53: Magia Fondo Verde (Croma)</li>
+                                <li>S56: Noche de Estreno</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-4 rounded border border-slate-100">
+                            <h4 class="font-bold text-slate-700 text-sm mb-2 border-b pb-1">Octubre: Web</h4>
+                            <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
+                                <li>S57: Servidores y Dominios</li>
+                                <li>S58: Planos Casa Digital</li>
+                                <li>S60: Galerías Infinitas</li>
+                                <li>S62: Diseño Responsive (Móvil)</li>
+                                <li>S63: Estética y Colores</li>
+                                <li class="font-bold text-academy-gold">S64: ¡Web Al Aire!</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-4 rounded border border-slate-100">
+                            <h4 class="font-bold text-slate-700 text-sm mb-2 border-b pb-1">Noviembre: Código</h4>
+                            <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
+                                <li>S65: Pensando como Robot</li>
+                                <li>S67: Bucles Infinitos</li>
+                                <li>S68: Condicionales (Si... entonces)</li>
+                                <li>S69: Coordenadas</li>
+                                <li>S70: Variables (Puntos)</li>
+                                <li class="font-bold text-academy-gold">S72: Mi Primer Videojuego</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contenido T4 -->
+                <div id="content-t4" class="tab-content bg-slate-900 rounded-xl p-6 border border-slate-800 text-white shadow-xl">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-academy-gold">EL MASTER AIVA</h3>
+                            <p class="text-sm text-slate-400">Diciembre • Integración Final</p>
+                        </div>
+                        <div class="text-4xl font-black text-slate-700">T4</div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white/5 p-4 rounded border border-white/10">
+                            <h4 class="font-bold text-white text-sm mb-2 border-b border-white/20 pb-1">Preparación Final</h4>
+                            <ul class="text-xs text-slate-300 space-y-2 list-disc pl-4">
+                                <li>S73: El Gran Enlace (Conectar todo)</li>
+                                <li>S74: Limpiando el Portafolio</li>
+                                <li>S75: Discurso de Graduación</li>
+                                <li>S76: Marca Personal 2.0</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded border border-white/10">
+                            <h4 class="font-bold text-white text-sm mb-2 border-b border-white/20 pb-1">La Gran Gala</h4>
+                            <ul class="text-xs text-slate-300 space-y-2 list-disc pl-4">
+                                <li>S77: Galería Virtual AIVOLUTION</li>
+                                <li>S78: Ensayos Generales</li>
+                                <li class="font-bold text-academy-gold text-sm">S79-80: EVENTO DE GRADUACIÓN 🎓</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <!-- 4. TABLA DE HORARIOS Y PRECIOS -->
+        <!-- 4. TABLA DE HORARIOS Y PRECIOS (ACTUALIZADO) -->
         <section class="py-20 bg-slate-50 border-t border-slate-200">
             <div class="max-w-4xl mx-auto px-4">
                 <div class="text-center mb-10">
@@ -333,7 +508,10 @@
                                         <div class="text-xs text-slate-500 mt-1 flex items-center gap-1"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Virtual (Google Meet)</div>
                                     </td>
                                     <td class="p-4">
-                                        <div class="flex flex-col gap-1"><span>📅 Viernes 2:30 PM</span><span>📅 Sábados 11:30 AM</span></div>
+                                        <div class="flex flex-col gap-1">
+                                            <span>📅 <strong>Viernes:</strong> 4:30 PM - 6:00 PM</span>
+                                            <span>📅 <strong>Sábado:</strong> 11:30 AM - 1:00 PM</span>
+                                        </div>
                                     </td>
                                     <td class="p-4">
                                         <div class="font-bold text-lg">S/ 150.00 <span class="text-xs font-normal text-slate-500">/ mes</span></div>
@@ -533,6 +711,22 @@
         // ⚠️ INSTRUCCIONES: El entorno proveerá la apiKey. 
         // Si descargas este archivo para uso local, debes insertar tu propia API KEY de Google AI Studio aquí.
         const apiKey = ""; 
+
+        // --- PLAN MAESTRO TABS LOGIC ---
+        function switchTab(tabId) {
+            // Remove active from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // Remove active from all content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Add active to selected
+            document.getElementById('tab-' + tabId).classList.add('active');
+            document.getElementById('content-' + tabId).classList.add('active');
+        }
 
         // --- LEGAL MODAL LOGIC (NUEVO) ---
         const legalModal = document.getElementById('legal-modal');

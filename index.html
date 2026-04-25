@@ -3,48 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIVA | Academia & Estrategia</title>
-    <meta name="description" content="Formación tecnológica Kids, Asistentes Inteligentes y Consultoría Estratégica.">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>AIVA | Academia Tecnológica & Estrategia</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Fuentes: Merriweather (Clásico/Académico) e Inter (Moderno/Legible) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Merriweather:wght@300;400;700;900&display=swap" rel="stylesheet">
     
-    <!-- Markdown Parser para respuestas de IA -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: { 
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Merriweather', 'serif'] // Fuente para títulos académicos
+                        sans: ['Inter', 'sans-serif'], 
+                        serif: ['Merriweather', 'serif'] 
                     },
                     colors: {
-                        // Paleta Institucional
                         academy: { 
-                            primary: '#1e3a8a', // Azul Marino Profundo
-                            secondary: '#1e293b', // Slate Dark
-                            accent: '#2563eb', // Royal Blue
-                            gold: '#b45309', // Toque clásico
-                            bg: '#f8fafc', // Blanco humo
-                            paper: '#ffffff'
-                        }
-                    },
-                    animation: {
-                        'spin-slow': 'spin 3s linear infinite',
-                        'pulse-glow': 'pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-                    },
-                    keyframes: {
-                        'pulse-glow': {
-                            '0%, 100%': { opacity: 1, boxShadow: '0 0 20px rgba(168, 85, 247, 0.4)' },
-                            '50%': { opacity: 0.8, boxShadow: '0 0 10px rgba(168, 85, 247, 0.1)' }
+                            primary: '#1e3a8a', 
+                            accent: '#2563eb', 
+                            gold: '#b45309',
+                            bg: '#f8fafc',
+                            play: '#10b981'
                         }
                     }
                 }
@@ -53,879 +36,375 @@
     </script>
     <style>
         .hidden-section { display: none !important; }
-        .modal-scroll::-webkit-scrollbar { width: 8px; }
-        .modal-scroll::-webkit-scrollbar-track { background: #f1f5f9; }
-        .modal-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        .modal-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Sombras suaves para estilo "Papel" */
-        .paper-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); }
-        .paper-shadow-hover:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025); }
-
-        /* Animación suave para el contador */
-        @keyframes pulse-subtle {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
+        .hero-pattern {
+            background-color: #1e3a8a;
+            background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
         }
-        .animate-pulse-subtle { animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(30, 58, 138, 0.1); }
+        .nav-active { background-color: #1e3a8a; color: white !important; }
+        
+        .modal-content::-webkit-scrollbar { width: 6px; }
+        .modal-content::-webkit-scrollbar-track { background: #f1f5f9; }
+        .modal-content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
 
-        /* Chat Styles */
-        .chat-bubble { max-width: 80%; padding: 10px 14px; border-radius: 12px; margin-bottom: 8px; font-size: 0.95rem; line-height: 1.4; }
-        .chat-user { background-color: #eff6ff; color: #1e3a8a; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .chat-ai { background-color: #f8fafc; color: #334155; align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid #e2e8f0; }
-        .typing-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background-color: #cbd5e1; animation: typing 1.4s infinite ease-in-out both; margin: 0 2px; }
-        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
-        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
-        @keyframes typing { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
-        
-        /* Markdown override inside chat */
-        .chat-ai p { margin-bottom: 0.5em; }
-        .chat-ai ul { list-style-type: disc; margin-left: 1.2em; margin-bottom: 0.5em; }
-        .chat-ai strong { color: #1e3a8a; font-weight: 600; }
-        
-        /* Tab Styles for Plan Maestro */
-        .tab-btn.active { border-bottom: 2px solid #1e3a8a; color: #1e3a8a; font-weight: 700; background-color: #eff6ff; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fade-in 0.3s ease-in; }
-        @keyframes fade-in { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        /* Estilos para el Iframe del Juego */
+        .game-iframe-container {
+            width: 100%;
+            height: calc(100vh - 80px);
+            border: none;
+            background: #000;
+        }
     </style>
 </head>
-<body class="bg-academy-bg text-slate-700 font-sans antialiased relative">
+<body class="bg-academy-bg text-slate-800 font-sans antialiased">
 
     <!-- Navbar -->
-    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 h-20 shadow-sm">
+    <nav id="navbar" class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 h-20 shadow-sm transition-transform duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
             <div class="flex justify-between items-center h-full">
                 <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="switchView('kids')">
-                    <img src="logo-aiva.png" alt="AIVA Logo" class="h-10 w-auto object-contain">
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer group" onclick="switchView('kids')">
+                    <img src="logo-aiva.png" alt="AIVA Logo" class="h-10 w-auto object-contain transition-transform group-hover:scale-105" onerror="this.src='https://via.placeholder.com/40?text=AIVA'">
                     <span class="font-serif font-bold text-xl text-academy-primary tracking-tight">AIVA</span>
                 </div>
                 
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex space-x-2 items-center bg-slate-100 rounded-lg p-1 border border-slate-200">
-                    <button onclick="switchView('kids')" id="nav-btn-kids" class="px-5 py-2 rounded-md text-sm font-semibold transition-all text-slate-600 hover:text-academy-primary">Kids</button>
-                    <div class="w-px h-4 bg-slate-300"></div>
-                    <button onclick="switchView('asistentes')" id="nav-btn-asistentes" class="px-5 py-2 rounded-md text-sm font-semibold transition-all text-slate-600 hover:text-academy-primary">Asistentes IA</button>
-                    <div class="w-px h-4 bg-slate-300"></div>
-                    <button onclick="switchView('negocios')" id="nav-btn-negocios" class="px-5 py-2 rounded-md text-sm font-semibold transition-all text-slate-600 hover:text-academy-primary">Negocios</button>
+                <div class="hidden lg:flex space-x-1 items-center bg-slate-100 rounded-2xl p-1 border border-slate-200">
+                    <button onclick="switchView('kids')" id="nav-btn-kids" class="px-5 py-2 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:text-academy-primary">Inicio</button>
+                    <button onclick="switchView('lab')" id="nav-btn-lab" class="px-5 py-2 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:text-academy-primary">Student Lab 🧪</button>
+                    <button onclick="switchView('blog')" id="nav-btn-blog" class="px-5 py-2 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:text-academy-primary">Blog Tips 💡</button>
+                    <button onclick="switchView('negocios')" id="nav-btn-negocios" class="px-5 py-2 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:text-academy-primary">Negocios</button>
                 </div>
 
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-academy-primary focus:outline-none">
-                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <div class="flex items-center gap-4">
+                    <button onclick="openEnrollmentModal('General')" class="hidden sm:block bg-academy-primary text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-academy-accent transition-all shadow-md">
+                        Inscríbete
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
                     </button>
                 </div>
             </div>
         </div>
         
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 shadow-xl absolute w-full left-0 top-20">
-            <div class="px-4 pt-4 pb-6 space-y-3 text-center">
-                <button onclick="switchView('kids')" class="w-full block px-3 py-3 text-base font-semibold text-academy-primary bg-slate-50 rounded-lg border border-slate-100">🧒 AIVA Kids</button>
-                <button onclick="switchView('asistentes')" class="w-full block px-3 py-3 text-base font-semibold text-slate-600 border border-slate-100 rounded-lg hover:bg-slate-50">🤖 Asistentes IA</button>
-                <button onclick="switchView('negocios')" class="w-full block px-3 py-3 text-base font-semibold text-slate-600 border border-slate-100 rounded-lg hover:bg-slate-50">📊 Negocios</button>
-            </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-200 p-4 space-y-2 shadow-xl">
+            <button onclick="switchView('kids'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-bold text-slate-600 hover:bg-slate-50">Inicio</button>
+            <button onclick="switchView('lab'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-bold text-slate-600 hover:bg-slate-50">Student Lab 🧪</button>
+            <button onclick="switchView('blog'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-bold text-slate-600 hover:bg-slate-50">Blog Tips 💡</button>
+            <button onclick="switchView('negocios'); toggleMobileMenu()" class="w-full text-left px-4 py-3 rounded-xl font-bold text-slate-600 hover:bg-slate-50">Negocios</button>
+            <button onclick="openEnrollmentModal('General'); toggleMobileMenu()" class="block w-full text-center bg-academy-primary text-white py-3 rounded-xl font-bold">Matricularme</button>
         </div>
     </nav>
 
-    <!-- VIEW: KIDS -->
-    <main id="view-kids" class="transition-opacity duration-300 pt-20 min-h-screen flex flex-col">
-        
-        <!-- 1. HERO SECTION -->
-        <header class="relative py-20 lg:py-28 bg-academy-primary text-white overflow-hidden">
-            <div class="relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center px-4">
-                <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-8 backdrop-blur-sm">
-                    <span class="w-2 h-2 rounded-full bg-academy-gold animate-pulse"></span>
-                    <span class="text-sm font-medium tracking-wide text-yellow-100">Programa Anual de Alto Rendimiento</span>
+    <!-- VISTA: INICIO / KIDS -->
+    <main id="view-kids" class="pt-20">
+        <!-- Hero Section -->
+        <header class="hero-pattern py-24 text-white relative">
+            <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-12 relative z-10">
+                <div class="md:w-3/5 text-center md:text-left">
+                    <span class="inline-block bg-blue-500/20 border border-blue-400/30 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-6 italic">Educación 100% Virtual 2026</span>
+                    <h1 class="text-5xl md:text-7xl font-serif font-black mb-6 leading-[1.1]">Prepara a tu hijo para <span class="text-blue-300 italic underline decoration-academy-gold">liderar el futuro.</span></h1>
+                    <p class="text-xl text-blue-100/80 mb-10 leading-relaxed max-w-2xl">Clases en vivo vía Google Meet donde los niños dominan la informática y la IA sin salir de casa.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <button onclick="openPlanRequestModal()" class="bg-white text-academy-primary px-8 py-4 rounded-2xl font-black text-lg hover:shadow-2xl transition-all border-2 border-white hover:bg-transparent hover:text-white flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            Ver Plan Maestro
+                        </button>
+                        <button onclick="openEnrollmentModal('General')" class="bg-academy-gold text-white px-8 py-4 rounded-2xl font-black text-lg hover:brightness-110 transition-all text-center flex items-center justify-center shadow-xl uppercase tracking-tighter">Inscribirme Ahora</button>
+                    </div>
                 </div>
-                <h1 class="text-4xl md:text-6xl font-serif font-black mb-6 leading-tight tracking-tight">
-                    AIVOLUTION 2026: <br>
-                    <span class="text-blue-200 font-sans font-light">No solo usan tecnología,</span> <span class="bg-gradient-to-r from-blue-200 to-white bg-clip-text text-transparent">la dominan.</span>
-                </h1>
-                <p class="text-lg md:text-xl mb-10 max-w-3xl mx-auto font-light text-slate-200 leading-relaxed">
-                    El único programa anual con <strong>Asistente de IA propio</strong> y rutas personalizadas por edades para transformar consumidores en creadores.
-                    <br><span class="text-yellow-300 font-bold bg-white/10 px-2 py-1 rounded inline-block mt-2 text-sm">🔴 Clases 100% en Vivo por Google Meet</span>
-                </p>
-                <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-                    <a href="docs/plan-maestro-2026.pdf" download class="w-full sm:w-auto px-8 py-4 rounded-md bg-white text-academy-primary font-bold text-lg hover:bg-blue-50 transition-all shadow-lg flex items-center justify-center gap-2">
-                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                        Descargar Plan Maestro
-                    </a>
-                    <a href="https://forms.gle/z39jzgs4Mi4Vbovj8" target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-md bg-academy-gold hover:bg-yellow-700 text-white font-bold text-lg transition-all shadow-lg border border-transparent">
-                        Matricularme ahora
-                    </a>
+                <div class="md:w-2/5 relative">
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=600" alt="Alumno AIVA" class="rounded-[3rem] shadow-2xl border-8 border-white/10 rotate-3 transform hover:rotate-0 transition-transform duration-700">
                 </div>
             </div>
-            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
         </header>
 
-        <!-- SECCIÓN DE URGENCIA -->
-        <section class="bg-slate-900 text-white py-6 border-b border-academy-gold border-b-4">
-            <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-12 text-center md:text-left">
-                <div>
-                    <h3 class="text-xl font-bold font-serif text-academy-gold uppercase tracking-widest">Próximo Inicio</h3>
-                    <p class="text-sm text-slate-400">Las vacantes se agotan rápido.</p>
-                </div>
-                <div class="flex items-center gap-4 text-center">
-                    <div class="bg-white/10 rounded-lg p-3 min-w-[70px] backdrop-blur-sm"><span id="days" class="block text-2xl font-bold font-mono text-white">00</span><span class="text-xs text-slate-400 uppercase">Días</span></div>
-                    <div class="text-2xl font-bold text-slate-600">:</div>
-                    <div class="bg-white/10 rounded-lg p-3 min-w-[70px] backdrop-blur-sm"><span id="hours" class="block text-2xl font-bold font-mono text-white">00</span><span class="text-xs text-slate-400 uppercase">Hs</span></div>
-                    <div class="text-2xl font-bold text-slate-600">:</div>
-                    <div class="bg-white/10 rounded-lg p-3 min-w-[70px] backdrop-blur-sm"><span id="minutes" class="block text-2xl font-bold font-mono text-white">00</span><span class="text-xs text-slate-400 uppercase">Min</span></div>
-                    <div class="text-2xl font-bold text-slate-600">:</div>
-                    <div class="bg-white/10 rounded-lg p-3 min-w-[70px] backdrop-blur-sm"><span id="seconds" class="block text-2xl font-bold font-mono text-white">00</span><span class="text-xs text-slate-400 uppercase">Seg</span></div>
-                </div>
-                <div class="hidden md:block text-right">
-                    <p class="text-lg font-bold">6 de Marzo, 2026</p>
-                    <p class="text-xs text-green-400 animate-pulse-subtle">● Inscripciones Abiertas</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. RUTA DIFERENCIADA -->
-        <section class="py-20 bg-academy-bg">
-            <div class="max-w-6xl mx-auto px-4">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl font-serif font-bold text-slate-800">Tu hijo no es igual a los demás</h2>
-                    <p class="text-slate-600 mt-2">Hemos diseñado dos rutas especializadas según su etapa de desarrollo.</p>
-                    <div class="w-16 h-1 bg-academy-gold mx-auto mt-4 rounded-full"></div>
-                </div>
-
-                <!-- ✨ CHATBOT INVITATION ✨ -->
-                <div class="max-w-3xl mx-auto mb-16 bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-100 rounded-2xl p-8 shadow-sm text-center relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-20 h-20 bg-blue-400 rounded-full blur-[50px] opacity-20"></div>
-                    <div class="text-4xl mb-4 animate-bounce">💬</div>
-                    <h3 class="text-xl font-bold text-academy-primary mb-3">¿Tienes dudas sobre AIVOLUTION 2026?</h3>
-                    <p class="text-slate-600 mb-6">Nuestro Asistente IA conoce todos los detalles del plan de estudios, horarios y precios. ¡Pregúntale lo que quieras!</p>
-                    <button onclick="openAivotChat()" class="px-8 py-3 bg-academy-primary hover:bg-academy-accent text-white rounded-full font-bold shadow-lg transition-transform hover:scale-105 flex items-center justify-center gap-2 mx-auto">
-                        <span>🤖</span> Chatear con Asistente AIVA
-                    </button>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-                    <!-- Nivel Explorador -->
-                    <div class="bg-white rounded-xl overflow-hidden paper-shadow paper-shadow-hover transition-all group border-t-4 border-blue-400">
-                        <div class="p-8">
-                            <div class="flex justify-between items-start mb-6">
-                                <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center text-3xl">🚀</div>
-                                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold uppercase">7 - 9 años</span>
-                            </div>
-                            <h3 class="text-2xl font-serif font-bold text-slate-800 mb-2">Nivel Explorador</h3>
-                            <p class="text-slate-500 mb-6 text-sm">El primer paso firme en el mundo digital. Seguridad y creatividad.</p>
-                            
-                            <ul class="space-y-4 mb-8">
-                                <li class="flex items-start gap-3"><span class="text-blue-500 mt-1">✓</span><div><strong class="text-slate-700 block text-sm">Microsoft Office Master</strong><span class="text-xs text-slate-500">Word para cuentos, PPT para ideas.</span></div></li>
-                                <li class="flex items-start gap-3"><span class="text-blue-500 mt-1">✓</span><div><strong class="text-slate-700 block text-sm">Cimientos Digitales</strong><span class="text-xs text-slate-500">Manejo de archivos y seguridad básica.</span></div></li>
-                                <li class="flex items-start gap-3"><span class="text-blue-500 mt-1">✓</span><div><strong class="text-slate-700 block text-sm">Creatividad Local</strong><span class="text-xs text-slate-500">Diseño básico y lógica visual.</span></div></li>
-                            </ul>
-                            <a href="https://wa.me/51952225123?text=Info%20Nivel%20Explorador" class="block w-full text-center py-3 border border-blue-200 text-blue-600 font-bold rounded-lg hover:bg-blue-50 transition-colors">Solicitar Temario Explorador</a>
-                        </div>
+        <!-- SOBRE EL PROFESOR -->
+        <section class="py-24 bg-white text-center md:text-left">
+            <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center gap-16">
+                <div class="md:w-1/3">
+                    <div class="relative inline-block">
+                        <div class="absolute inset-0 bg-academy-gold rounded-full blur-2xl opacity-20"></div>
+                        <img src="https://images.unsplash.com/photo-1544717297-fa95b3ee51f3?auto=format&fit=crop&q=80&w=400" alt="Profesor AIVA" class="relative w-64 h-64 md:w-72 md:h-72 rounded-full object-cover border-8 border-slate-50 shadow-xl">
                     </div>
-
-                    <!-- Nivel Pro-Collaborator -->
-                    <div class="bg-white rounded-xl overflow-hidden paper-shadow paper-shadow-hover transition-all group border-t-4 border-indigo-500 relative">
-                        <div class="absolute top-0 right-0 bg-indigo-500 text-white text-[10px] font-bold px-2 py-1 rounded-bl">RECOMENDADO</div>
-                        <div class="p-8">
-                            <div class="flex justify-between items-start mb-6">
-                                <div class="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center text-3xl">💼</div>
-                                <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-xs font-bold uppercase">10 - 12+ años</span>
-                            </div>
-                            <h3 class="text-2xl font-serif font-bold text-slate-800 mb-2">Nivel Pro-Collaborator</h3>
-                            <p class="text-slate-500 mb-6 text-sm">Productividad real y trabajo en equipo en la nube.</p>
-                            
-                            <ul class="space-y-4 mb-8">
-                                <li class="flex items-start gap-3"><span class="text-indigo-500 mt-1">✓</span><div><strong class="text-slate-700 block text-sm">Google Workspace Elite</strong><span class="text-xs text-slate-500">Docs, Sheets y Slides en la nube.</span></div></li>
-                                <li class="flex items-start gap-3"><span class="text-indigo-500 mt-1">✓</span><div><strong class="text-slate-700 block text-sm">Colaboración Real-Time</strong><span class="text-xs text-slate-500">Trabajo en equipo simultáneo.</span></div></li>
-                                <li class="flex items-start gap-3"><span class="text-indigo-500 mt-1">✓</span><div><strong class="text-slate-700 block text-sm">Investigación Avanzada</strong><span class="text-xs text-slate-500">Fuentes fiables y síntesis de info.</span></div></li>
-                            </ul>
-                            <a href="https://wa.me/51952225123?text=Info%20Nivel%20Pro" class="block w-full text-center py-3 border border-indigo-200 text-indigo-600 font-bold rounded-lg hover:bg-indigo-50 transition-colors">Solicitar Temario Pro</a>
-                        </div>
+                </div>
+                <div class="md:w-2/3">
+                    <h2 class="text-4xl font-serif font-black mb-6 text-slate-900 leading-tight tracking-tight italic">Tu mentor en AIVA</h2>
+                    <p class="text-lg text-slate-600 leading-relaxed mb-8">Especialista en **Computación e Informática con IA**. Mi misión es que el estudiante no sea un espectador, sino un creador con pensamiento lógico sólido.</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 font-bold"><span class="block text-2xl text-academy-gold">7-12+</span>Años</div>
+                        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 font-bold"><span class="block text-2xl text-academy-primary">100%</span>Virtual</div>
+                        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 font-bold"><span class="block text-2xl text-academy-primary">Meet</span>En Vivo</div>
+                        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 font-bold"><span class="block text-2xl text-academy-primary">IA</span>Copiloto</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 3. INTEGRACIÓN DEL FACTOR X (AIVOT) -->
-        <section class="py-16 bg-gradient-to-br from-slate-900 to-academy-primary text-white relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-64 h-64 bg-purple-500 rounded-full blur-[100px] opacity-30 pointer-events-none"></div>
-            <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row items-center gap-10 relative z-10">
-                <div class="w-full md:w-1/3 flex justify-center">
-                    <!-- Icono Robot SVG -->
-                    <div class="w-40 h-40 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-md border border-white/20 shadow-2xl shadow-purple-500/20 animate-pulse-glow relative">
-                        <span class="text-8xl relative z-10">🤖</span>
-                        <!-- Orbit ring -->
-                        <div class="absolute inset-0 border border-white/20 rounded-full animate-spin-slow"></div>
-                    </div>
-                </div>
-                <div class="w-full md:w-2/3 text-center md:text-left">
-                    <span class="text-purple-300 font-bold tracking-widest text-xs uppercase mb-2 block">El Factor X de AIVA</span>
-                    <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4">AIVOT: Mentor IA 24/7</h2>
-                    <p class="text-slate-300 text-lg leading-relaxed mb-6">
-                        No solo enseñamos IA, la entregamos. Cada alumno recibe acceso a una <strong>Inteligencia Artificial exclusiva</strong>, entrenada por nosotros.
-                    </p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                        <div class="bg-white/10 rounded p-3 border border-white/10">
-                            <h4 class="font-bold text-white text-sm">Guía de Proyectos</h4>
-                            <p class="text-xs text-slate-400">Feedback instantáneo sobre sus ideas.</p>
-                        </div>
-                        <div class="bg-white/10 rounded p-3 border border-white/10">
-                            <h4 class="font-bold text-white text-sm">Modo SOS Escolar</h4>
-                            <p class="text-xs text-slate-400">Ayuda con dudas de tareas del colegio.</p>
-                        </div>
-                    </div>
-                    <!-- ✨ BOTÓN PARA PROBAR AIVOT (Gemini API) ✨ -->
-                    <button onclick="openAivotChat()" class="px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-lg shadow-lg shadow-purple-500/30 transition-all transform hover:scale-105 flex items-center justify-center gap-2 mx-auto md:mx-0 border border-purple-400/50">
-                        <span>✨</span> Hablar con AIVOT (Demo)
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. TIMELINE DEL PLAN MAESTRO (ACTUALIZADO DETALLADO) -->
-        <section class="py-20 bg-white">
-            <div class="max-w-6xl mx-auto px-4">
-                <div class="text-center mb-10">
-                    <h2 class="text-3xl font-serif font-bold text-slate-800">Plan Maestro 2026 🗺️</h2>
-                    <p class="text-slate-500">Un viaje de 10 meses desde los cimientos hasta el dominio total.</p>
+        <!-- PRECIOS POR VOLUMEN -->
+        <section class="py-24 bg-slate-50">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-16 px-4">
+                    <h2 class="text-4xl font-serif font-black text-slate-900 mb-4 tracking-tighter italic underline decoration-academy-gold decoration-4 underline-offset-8">Inversión 2026</h2>
+                    <p class="text-slate-500 font-medium italic">Clases virtuales de alto rendimiento con grupos adaptados.</p>
                 </div>
                 
-                <!-- Pestañas de Navegación -->
-                <div class="flex flex-wrap justify-center gap-2 mb-8 border-b border-slate-200 pb-1">
-                    <button onclick="switchTab('t1')" id="tab-t1" class="tab-btn active px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 transition-colors rounded-t-lg">Trimestre 1: Despertar</button>
-                    <button onclick="switchTab('t2')" id="tab-t2" class="tab-btn px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 transition-colors rounded-t-lg">Trimestre 2: Datos</button>
-                    <button onclick="switchTab('t3')" id="tab-t3" class="tab-btn px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 transition-colors rounded-t-lg">Trimestre 3: Mundos</button>
-                    <button onclick="switchTab('t4')" id="tab-t4" class="tab-btn px-4 py-2 text-sm font-medium text-slate-500 hover:text-slate-700 transition-colors rounded-t-lg">Trimestre 4: Master</button>
-                </div>
-
-                <!-- Contenido T1 -->
-                <div id="content-t1" class="tab-content active bg-slate-50 rounded-xl p-6 border border-slate-200 shadow-sm">
-                    <div class="flex items-center justify-between mb-6">
-                        <div>
-                            <h3 class="text-xl font-bold text-academy-primary">EL DESPERTAR DE LOS CREADORES</h3>
-                            <p class="text-sm text-slate-500">Marzo - Mayo • Windows, Word/Docs, Canva, IA</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Semi-Privado -->
+                    <div class="p-8 rounded-[2.5rem] border-2 border-slate-200 bg-white hover:border-slate-400 transition-all group card-hover flex flex-col text-center">
+                        <h3 class="text-xl font-bold mb-1">Semi-Privado</h3>
+                        <p class="text-[10px] text-slate-400 mb-6 uppercase font-bold tracking-widest text-center">Menos de 5 alumnos</p>
+                        <div class="flex items-baseline justify-center gap-1 mb-8">
+                            <span class="text-4xl font-black text-slate-700 tracking-tighter italic">S/ 180</span>
+                            <span class="text-slate-400 font-bold text-sm">/ mes</span>
                         </div>
-                        <div class="text-4xl font-black text-slate-200">T1</div>
+                        <button onclick="openEnrollmentModal('Semi-Privado (S/ 180)')" class="block w-full py-3 text-center rounded-xl bg-slate-100 text-slate-800 font-black hover:bg-slate-200 transition-all">Solicitar</button>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="bg-white p-4 rounded border border-slate-100">
-                            <h4 class="font-bold text-slate-700 text-sm mb-2 border-b pb-1">Marzo: Cimientos</h4>
-                            <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
-                                <li>S01: Despertar del Cuartel (Orden)</li>
-                                <li>S02: Mi Amigo AIVOT (Identidad)</li>
-                                <li>S03: Espejo Mágico (Avatares)</li>
-                                <li>S04: Refinando el Hechizo (Prompting)</li>
-                                <li>S05-06: Escudos y Marca Personal</li>
-                                <li>S07: Poder de las Palabras (Docs)</li>
-                            </ul>
+
+                    <!-- Estándar (RECOMENDADO) -->
+                    <div class="p-8 rounded-[2.5rem] bg-academy-primary text-white relative overflow-hidden card-hover shadow-2xl flex flex-col transform scale-105 border-4 border-academy-gold text-center">
+                        <div class="absolute top-0 right-0 bg-academy-gold text-white px-8 py-2 text-[10px] font-black uppercase rotate-45 translate-x-8 translate-y-4 text-center">Punto Dulce</div>
+                        <h3 class="text-2xl font-black mb-1 italic tracking-tight">Plan Estándar</h3>
+                        <p class="text-[10px] text-blue-200 mb-6 uppercase font-bold tracking-widest text-center">Grupo de 5 alumnos</p>
+                        <div class="flex items-baseline justify-center gap-1 mb-8">
+                            <span class="text-5xl font-black text-white tracking-tighter italic">S/ 150</span>
+                            <span class="text-blue-300 font-bold text-sm">/ mes</span>
                         </div>
-                        <div class="bg-white p-4 rounded border border-slate-100">
-                            <h4 class="font-bold text-slate-700 text-sm mb-2 border-b pb-1">Abril: Arte y Verdad</h4>
-                            <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
-                                <li>S09: Magia Fotográfica (Edición)</li>
-                                <li>S10: Cirugía Digital (IA Remove)</li>
-                                <li>S11-12: Carteles y Psicología Color</li>
-                                <li>S13: Sabuesos de Internet (Búsqueda)</li>
-                                <li>S14: Atrapando Mentiras (Fake News)</li>
-                                <li>S15: Mi Primera Noticia</li>
-                            </ul>
-                        </div>
-                        <div class="bg-white p-4 rounded border border-slate-100">
-                            <h4 class="font-bold text-slate-700 text-sm mb-2 border-b pb-1">Mayo: Arquitectos</h4>
-                            <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
-                                <li>S17-18: Vectores e Iconos</li>
-                                <li>S19: Cuentacuentos con IA</li>
-                                <li>S20-21: Libro de Maravillas (Formatos)</li>
-                                <li>S22: El PDF Maestro</li>
-                                <li class="font-bold text-academy-gold">S24: PROYECTO: AIVA Magazine</li>
-                            </ul>
-                        </div>
+                        <button onclick="openEnrollmentModal('Estándar (S/ 150)')" class="block w-full py-4 text-center rounded-2xl bg-academy-gold text-white font-black hover:brightness-110 transition-all shadow-xl text-lg uppercase tracking-tight">Inscribirme Ahora</button>
                     </div>
-                </div>
 
-                <!-- Contenido T2 -->
-                <div id="content-t2" class="tab-content bg-slate-50 rounded-xl p-6 border border-slate-200 shadow-sm">
-                    <div class="flex items-center justify-between mb-6">
-                        <div>
-                            <h3 class="text-xl font-bold text-academy-primary">EL ARQUITECTO DE DATOS</h3>
-                            <p class="text-sm text-slate-500">Junio - Agosto • Excel/Sheets, Slides, Audacity</p>
+                    <!-- Colectivo -->
+                    <div class="p-8 rounded-[2.5rem] border-2 border-slate-200 bg-white hover:border-blue-500 transition-all group card-hover flex flex-col text-center">
+                        <h3 class="text-xl font-bold mb-1">Plan Colectivo</h3>
+                        <p class="text-[10px] text-slate-400 mb-6 uppercase font-bold tracking-widest text-center">Grupo de 10 alumnos</p>
+                        <div class="flex items-baseline justify-center gap-1 mb-8 text-academy-accent">
+                            <span class="text-4xl font-black tracking-tighter italic">S/ 120</span>
+                            <span class="text-slate-400 font-bold text-sm">/ mes</span>
                         </div>
-                        <div class="text-4xl font-black text-slate-200">T2</div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="bg-white p-4 rounded border border-slate-100">
-                            <h4 class="font-bold text-slate-700 text-sm mb-2 border-b pb-1">Junio: Dominio Celdas</h4>
-                            <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
-                                <li>S25: Tablero de Ajedrez (Filas/Cols)</li>
-                                <li>S26: Inventario de Juguetes (Datos)</li>
-                                <li>S27: Colores Inteligentes (Formato)</li>
-                                <li>S28: Presupuestos Básicos</li>
-                                <li>S29: Espía de Datos (Filtros)</li>
-                                <li>S30-32: Gráficos y Fórmulas</li>
-                            </ul>
-                        </div>
-                        <div class="bg-white p-4 rounded border border-slate-100">
-                            <h4 class="font-bold text-slate-700 text-sm mb-2 border-b pb-1">Julio: Historias Brillantes</h4>
-                            <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
-                                <li>S33: Guion del Héroe</li>
-                                <li>S34: Diapositivas de Impacto</li>
-                                <li>S35-36: Transiciones y Animación</li>
-                                <li>S37-38: Cine y Audio en Slides</li>
-                                <li>S39: Ensayando con AIVOT (Oratoria)</li>
-                                <li class="font-bold text-academy-gold">S40: PROYECTO: Charla TED</li>
-                            </ul>
-                        </div>
-                        <div class="bg-white p-4 rounded border border-slate-100">
-                            <h4 class="font-bold text-slate-700 text-sm mb-2 border-b pb-1">Agosto: Lab de Sonido</h4>
-                            <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
-                                <li>S41: Cazadores de Sonidos</li>
-                                <li>S42: Limpiando el Ruido</li>
-                                <li>S43: Estructura de Podcast</li>
-                                <li>S44: La Voz de AIVOT (Entrevistas)</li>
-                                <li>S46: Mezclador Pro</li>
-                                <li class="font-bold text-academy-gold">S48: Estreno Podcast AIVOLUTION</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Contenido T3 -->
-                <div id="content-t3" class="tab-content bg-slate-50 rounded-xl p-6 border border-slate-200 shadow-sm">
-                    <div class="flex items-center justify-between mb-6">
-                        <div>
-                            <h3 class="text-xl font-bold text-academy-primary">EL CREADOR DE MUNDOS</h3>
-                            <p class="text-sm text-slate-500">Septiembre - Noviembre • Video, Web, Scratch</p>
-                        </div>
-                        <div class="text-4xl font-black text-slate-200">T3</div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="bg-white p-4 rounded border border-slate-100">
-                            <h4 class="font-bold text-slate-700 text-sm mb-2 border-b pb-1">Septiembre: Cine</h4>
-                            <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
-                                <li>S49: Luces, Cámara, ¡Planos!</li>
-                                <li>S50: El Corte Perfecto (Edición)</li>
-                                <li>S51: Efectos Especiales</li>
-                                <li>S52: Títulos que Vuelan</li>
-                                <li>S53: Magia Fondo Verde (Croma)</li>
-                                <li>S56: Noche de Estreno</li>
-                            </ul>
-                        </div>
-                        <div class="bg-white p-4 rounded border border-slate-100">
-                            <h4 class="font-bold text-slate-700 text-sm mb-2 border-b pb-1">Octubre: Web</h4>
-                            <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
-                                <li>S57: Servidores y Dominios</li>
-                                <li>S58: Planos Casa Digital</li>
-                                <li>S60: Galerías Infinitas</li>
-                                <li>S62: Diseño Responsive (Móvil)</li>
-                                <li>S63: Estética y Colores</li>
-                                <li class="font-bold text-academy-gold">S64: ¡Web Al Aire!</li>
-                            </ul>
-                        </div>
-                        <div class="bg-white p-4 rounded border border-slate-100">
-                            <h4 class="font-bold text-slate-700 text-sm mb-2 border-b pb-1">Noviembre: Código</h4>
-                            <ul class="text-xs text-slate-600 space-y-1.5 list-disc pl-4">
-                                <li>S65: Pensando como Robot</li>
-                                <li>S67: Bucles Infinitos</li>
-                                <li>S68: Condicionales (Si... entonces)</li>
-                                <li>S69: Coordenadas</li>
-                                <li>S70: Variables (Puntos)</li>
-                                <li class="font-bold text-academy-gold">S72: Mi Primer Videojuego</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Contenido T4 -->
-                <div id="content-t4" class="tab-content bg-slate-900 rounded-xl p-6 border border-slate-800 text-white shadow-xl">
-                    <div class="flex items-center justify-between mb-6">
-                        <div>
-                            <h3 class="text-xl font-bold text-academy-gold">EL MASTER AIVA</h3>
-                            <p class="text-sm text-slate-400">Diciembre • Integración Final</p>
-                        </div>
-                        <div class="text-4xl font-black text-slate-700">T4</div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-white/5 p-4 rounded border border-white/10">
-                            <h4 class="font-bold text-white text-sm mb-2 border-b border-white/20 pb-1">Preparación Final</h4>
-                            <ul class="text-xs text-slate-300 space-y-2 list-disc pl-4">
-                                <li>S73: El Gran Enlace (Conectar todo)</li>
-                                <li>S74: Limpiando el Portafolio</li>
-                                <li>S75: Discurso de Graduación</li>
-                                <li>S76: Marca Personal 2.0</li>
-                            </ul>
-                        </div>
-                        <div class="bg-white/5 p-4 rounded border border-white/10">
-                            <h4 class="font-bold text-white text-sm mb-2 border-b border-white/20 pb-1">La Gran Gala</h4>
-                            <ul class="text-xs text-slate-300 space-y-2 list-disc pl-4">
-                                <li>S77: Galería Virtual AIVOLUTION</li>
-                                <li>S78: Ensayos Generales</li>
-                                <li class="font-bold text-academy-gold text-sm">S79-80: EVENTO DE GRADUACIÓN 🎓</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 4. TABLA DE HORARIOS Y PRECIOS (ACTUALIZADO) -->
-        <section class="py-20 bg-slate-50 border-t border-slate-200">
-            <div class="max-w-4xl mx-auto px-4">
-                <div class="text-center mb-10">
-                    <h2 class="text-2xl font-serif font-bold text-slate-800">Inversión & Horarios (Perú)</h2>
-                    <p class="text-slate-500">Transparencia total. Sin costos ocultos.</p>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-slate-100 border-b border-slate-200 text-slate-600 text-sm uppercase tracking-wider">
-                                    <th class="p-4 font-bold">Modalidad</th>
-                                    <th class="p-4 font-bold">Horario</th>
-                                    <th class="p-4 font-bold">Inversión</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-slate-700 text-sm">
-                                <tr class="border-b border-slate-100 hover:bg-slate-50">
-                                    <td class="p-4">
-                                        <div class="font-bold text-academy-primary">Plan Grupal</div>
-                                        <div class="text-xs text-slate-500 mt-1 flex items-center gap-1"><svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Virtual (Google Meet)</div>
-                                    </td>
-                                    <td class="p-4">
-                                        <div class="flex flex-col gap-1">
-                                            <span>📅 <strong>Viernes:</strong> 4:30 PM - 6:00 PM</span>
-                                            <span>📅 <strong>Sábado:</strong> 11:30 AM - 1:00 PM</span>
-                                        </div>
-                                    </td>
-                                    <td class="p-4">
-                                        <div class="font-bold text-lg">S/ 150.00 <span class="text-xs font-normal text-slate-500">/ mes</span></div>
-                                        <div class="flex items-center gap-2 mt-2"><span class="text-[10px] font-bold bg-purple-600 text-white px-2 py-0.5 rounded">Yape</span><span class="text-[10px] font-bold bg-sky-500 text-white px-2 py-0.5 rounded">Plin</span></div>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-slate-50">
-                                    <td class="p-4 font-bold text-slate-600">Plan Individual</td>
-                                    <td class="p-4 italic text-slate-500">Horario a convenir según disponibilidad</td>
-                                    <td class="p-4 text-academy-gold font-bold cursor-pointer underline"><a href="https://wa.me/51952225123?text=Hola,%20quisiera%20consultar%20sobre%20el%20Plan%20Individual%20de%20AIVOLUTION" target="_blank">Consultar</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="bg-yellow-50 p-4 text-xs text-yellow-800 text-center border-t border-yellow-100">* Incluye acceso a "AIVOT-Estudiante AIVOLUTION".</div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- VIEW: ASISTENTES -->
-    <main id="view-asistentes" class="hidden-section bg-slate-50 min-h-screen transition-opacity duration-300 pt-20">
-        <header class="pt-16 pb-12 text-center px-4 bg-white border-b border-slate-200">
-            <div class="max-w-4xl mx-auto">
-                <div class="inline-block px-3 py-1 rounded bg-blue-50 text-blue-800 text-xs font-bold uppercase tracking-widest mb-4">Plataforma Educativa</div>
-                <h1 class="text-4xl md:text-5xl font-serif font-bold text-slate-900 mb-4">Asistentes Inteligentes</h1>
-                <p class="text-slate-500 text-lg max-w-2xl mx-auto">Herramientas especializadas para potenciar la labor docente y el aprendizaje estudiantil.</p>
-            </div>
-        </header>
-
-        <!-- Sub-nav pegajosa -->
-        <div class="sticky top-20 z-40 bg-white/90 backdrop-blur border-b border-slate-200 py-3 shadow-sm">
-            <div class="max-w-6xl mx-auto px-4 flex gap-2 md:justify-center overflow-x-auto hide-scrollbar">
-                <a href="#lista-peru" class="px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 hover:bg-academy-primary hover:text-white text-xs font-bold transition-all whitespace-nowrap border border-slate-200">🇵🇪 Perú</a>
-                <a href="#lista-espana" class="px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 hover:bg-yellow-600 hover:text-white text-xs font-bold transition-all whitespace-nowrap border border-slate-200">🇪🇸 España</a>
-                <a href="#lista-uni" class="px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 hover:bg-indigo-600 hover:text-white text-xs font-bold transition-all whitespace-nowrap border border-slate-200">🎓 Superior</a>
-                <a href="#lista-profesionales" class="px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-800 hover:text-white text-xs font-bold transition-all whitespace-nowrap border border-slate-200">💼 Profesionales</a>
-            </div>
-        </div>
-
-        <section id="lista-peru" class="py-12 scroll-mt-36">
-             <div class="max-w-6xl mx-auto px-4">
-                 <div class="mb-8 flex items-center gap-3"><span class="text-2xl bg-slate-100 p-2 rounded-full">🇵🇪</span><h3 class="text-xl font-serif font-bold text-slate-800">Educación Básica (Perú)</h3><div class="h-px bg-slate-200 flex-grow"></div></div>
-                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="bg-white border border-slate-200 rounded-lg p-6 hover:shadow-lg transition-all flex flex-col"><h3 class="text-lg font-bold text-academy-primary mb-2 flex items-center gap-2"><span class="text-xl">🧠</span> AIVA-Study</h3><p class="text-slate-500 text-sm mb-4 flex-grow">Refuerzo escolar personalizado para primaria y secundaria.</p><div class="space-y-2 mt-auto"><a href="https://wa.me/51952225123" target="_blank" class="block text-center w-full py-2 px-4 bg-green-600 hover:bg-green-700 text-white text-sm font-bold rounded transition-colors">Solicitar Acceso</a><button onclick="openModal('primaria_pe')" class="w-full text-xs text-slate-500 hover:text-academy-primary underline">Ver detalles</button></div></div>
-                    <div class="bg-white border border-slate-200 rounded-lg p-6 hover:shadow-lg transition-all flex flex-col"><h3 class="text-lg font-bold text-academy-primary mb-2 flex items-center gap-2"><span class="text-xl">🎓</span> AIVA-Docente</h3><p class="text-slate-500 text-sm mb-4 flex-grow">Generador de sesiones, rúbricas y material didáctico CNEB.</p><div class="space-y-2 mt-auto"><a href="https://wa.me/51952225123" target="_blank" class="block text-center w-full py-2 px-4 bg-green-600 hover:bg-green-700 text-white text-sm font-bold rounded transition-colors">Solicitar Acceso</a><button onclick="openModal('docente')" class="w-full text-xs text-slate-500 hover:text-academy-primary underline">Ver detalles</button></div></div>
-                 </div>
-            </div>
-        </section>
-
-        <!-- FAQ Section -->
-        <section id="faq-section" class="py-16 bg-white border-t border-slate-200 scroll-mt-24">
-            <div class="max-w-4xl mx-auto px-4">
-                <div class="text-center mb-10"><h2 class="text-2xl font-serif font-bold text-slate-800 mb-2">Centro de Ayuda</h2><p class="text-slate-500 text-sm">Selecciona una categoría para ver preguntas frecuentes.</p></div>
-                <div class="flex flex-wrap justify-center mb-8 gap-2">
-                    <button onclick="toggleFaq('primaria')" id="btn-primaria" class="faq-btn active">Primaria (PE)</button>
-                    <button onclick="toggleFaq('secundaria')" id="btn-secundaria" class="faq-btn">Secundaria (PE)</button>
-                    <button onclick="toggleFaq('uni')" id="btn-uni" class="faq-btn">Universidad</button>
-                    <button onclick="toggleFaq('pro')" id="btn-pro" class="faq-btn">Profesionales</button>
-                </div>
-                <div id="faq-container-general" class="space-y-4"></div>
-            </div>
-        </section>
-    </main>
-
-    <!-- VIEW: NEGOCIOS -->
-    <main id="view-negocios" class="hidden-section bg-slate-50 min-h-screen transition-opacity duration-300 pt-20">
-        <section class="py-24 relative bg-white border-b border-slate-200">
-            <div class="max-w-6xl mx-auto px-4">
-                <div class="flex flex-col md:flex-row gap-16 items-start">
-                    <div class="w-full md:w-2/3">
-                        <div class="inline-block px-3 py-1 rounded bg-slate-100 border border-slate-300 text-slate-600 text-xs font-bold uppercase tracking-widest mb-4">Consultoría B2B</div>
-                        <h2 class="text-4xl md:text-5xl font-serif font-bold text-slate-900 mb-6 leading-tight">Diagnóstico & <br>Estrategia</h2>
-                        <p class="text-slate-600 text-lg leading-relaxed mb-8 border-l-4 border-academy-primary pl-6">"No digitalizamos el caos. Primero ordenamos tus procesos, luego implementamos la inteligencia."</p>
-                        <a href="https://wa.me/51952225123?text=Solicito%20Evaluacion%20B2B" target="_blank" class="inline-flex items-center gap-3 px-8 py-4 bg-slate-900 text-white font-bold rounded hover:bg-slate-700 transition-colors shadow-lg">Solicitar Evaluación Gratuita</a>
+                        <button onclick="openEnrollmentModal('Colectivo (S/ 120)')" class="block w-full py-3 text-center rounded-xl bg-blue-50 text-blue-600 font-black hover:bg-blue-100 transition-all">Armar mi Grupo</button>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer Académico -->
-    <footer class="bg-slate-900 text-slate-400 py-12 text-sm border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-            <div>
-                <img src="logo-aiva.png" alt="AIVA" class="h-10 w-auto mb-4 bg-white/5 rounded-lg p-1.5 inline-block backdrop-blur-sm border border-white/10">
-                <p>Tecnología con propósito educativo y estratégico.</p>
+    <!-- VISTA: STUDENT LAB -->
+    <main id="view-lab" class="hidden-section pt-28 pb-24 bg-slate-950 min-h-screen text-white text-center">
+        <div class="max-w-6xl mx-auto px-4">
+            <span class="text-academy-accent font-bold tracking-[0.4em] uppercase text-[10px] mb-4 block">Ecosistema de Aprendizaje</span>
+            <h2 class="text-6xl md:text-8xl font-black mb-6 tracking-tighter italic underline decoration-blue-500 decoration-8 underline-offset-8">STUDENT LAB</h2>
+            <p class="text-slate-400 text-lg max-w-2xl mx-auto mb-16">Herramientas inteligentes y juegos educativos diseñados para potenciar el aprendizaje virtual.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-20 text-left">
+                <!-- Herramienta -->
+                <div class="bg-slate-900 border border-slate-800 rounded-[3rem] p-10 flex flex-col items-center gap-4 card-hover">
+                    <div class="text-5xl mb-2">🛠️</div>
+                    <h4 class="text-2xl font-bold italic tracking-tight text-white">Prompt-Maker</h4>
+                    <p class="text-slate-400 text-sm text-center">Optimiza tus consultas a la IA para estudiar mejor.</p>
+                    <span class="px-6 py-2 bg-blue-600/20 text-blue-400 rounded-full text-[10px] font-black uppercase border border-blue-500/30">Próximamente</span>
+                </div>
+                <!-- Juego Limpieza Extrema -->
+                <div class="bg-slate-900 border border-slate-800 rounded-[3rem] p-10 flex flex-col items-center gap-4 card-hover border-academy-play/30">
+                    <div class="text-5xl mb-2">👾</div>
+                    <h4 class="text-2xl font-bold italic tracking-tight text-white">Limpieza Extrema</h4>
+                    <p class="text-slate-400 text-sm text-center">Elimina virus y optimiza el sistema de la academia.</p>
+                    <button onclick="launchGame('https://aivaacademia.github.io/limpieza-extrema/')" class="px-8 py-3 bg-academy-play rounded-xl text-[10px] font-black uppercase hover:bg-emerald-500 transition-colors shadow-lg shadow-emerald-500/20">JUGAR v1.0</button>
+                </div>
             </div>
-            <div>
-                <h5 class="text-white font-bold mb-4 uppercase text-xs tracking-wider">Legal</h5>
-                <ul class="space-y-2">
-                    <li><button onclick="openLegalModal('terms')" class="hover:text-white text-left">Términos y Condiciones</button></li>
-                    <li><button onclick="openLegalModal('privacy')" class="hover:text-white text-left">Política de Privacidad</button></li>
-                </ul>
-            </div>
-            <div>
-                <h5 class="text-white font-bold mb-4 uppercase text-xs tracking-wider">Contacto</h5>
-                <p class="mb-3">aiva.academia.oficial@gmail.com</p>
-                <a href="https://wa.me/51952225123?text=Hola,%20quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20AIVA." target="_blank" class="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 text-green-400 px-4 py-2 rounded-lg transition-colors border border-white/10">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                    <span>Chat en WhatsApp</span>
-                </a>
+
+            <!-- Telegram Promo -->
+            <div class="bg-blue-600/10 border border-blue-500/30 p-10 rounded-[3rem] max-w-2xl mx-auto text-center">
+                <h3 class="text-2xl font-bold mb-4 flex items-center justify-center gap-3">
+                    <svg class="w-8 h-8 text-blue-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.462 8.28l-1.585 7.453c-.115.518-.425.644-.859.4-.662-.487-1.526-1.008-2.316-1.536l-1.31 1.258c-.144.138-.266.255-.544.255l.194-2.756 5.016-4.529c.218-.194-.048-.303-.337-.11l-6.201 3.903-2.671-.835c-.58-.182-.591-.58.121-.859l10.425-4.019c.483-.182.906.108.767.819z"/></svg>
+                    ¡Únete a la Comunidad!
+                </h3>
+                <p class="text-slate-400 text-sm mb-6">Comparte tus proyectos y resuelve dudas con otros alumnos en Telegram.</p>
+                <a href="https://t.me/aivaacademia" target="_blank" class="inline-block bg-white text-blue-600 px-8 py-3 rounded-2xl font-black uppercase tracking-wider text-xs hover:bg-blue-50 transition-colors shadow-lg">Entrar al Grupo</a>
             </div>
         </div>
-        <div class="text-center mt-12 pt-8 border-t border-slate-800 text-xs">
-            © 2026 AIVA. Todos los derechos reservados.
+    </main>
+
+    <!-- VISTA: GAME RUNNER -->
+    <main id="view-game-runner" class="hidden-section fixed inset-0 z-[100] bg-black">
+        <div class="absolute top-4 left-4 z-[110]">
+            <button onclick="switchView('lab')" class="bg-white/10 backdrop-blur-md text-white px-5 py-2.5 rounded-xl font-bold flex items-center gap-2 hover:bg-red-600 transition-all border border-white/20">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                SALIR DEL JUEGO
+            </button>
         </div>
-        <!-- Botón flotante WhatsApp -->
-        <a href="https://wa.me/51952225123" target="_blank" class="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#20bd5a] text-white p-3 rounded-full shadow-lg hover:-translate-y-1 transition-transform">
-            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-        </a>
+        <iframe id="game-iframe" src="" class="w-full h-full border-none"></iframe>
+    </main>
+
+    <!-- BLOG & NEGOCIOS (Omitidos los contenidos para brevedad) -->
+    <main id="view-blog" class="hidden-section pt-28 pb-24 bg-white min-h-screen text-center"><h2 class="text-5xl font-black italic">Blog Tips 💡</h2></main>
+    <main id="view-negocios" class="hidden-section pt-28 pb-24 bg-white min-h-screen text-center"><h2 class="text-5xl font-black italic">Consultoría B2B</h2></main>
+
+    <!-- Footer -->
+    <footer id="footer" class="bg-slate-950 text-slate-500 py-20 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-16 text-center md:text-left text-sm">
+            <div>
+                <div class="flex items-center justify-center md:justify-start gap-2 mb-6">
+                    <img src="logo-aiva.png" class="h-8 w-auto invert opacity-80" alt="Footer Logo">
+                    <span class="text-white font-serif font-bold text-2xl tracking-tighter italic">AIVA</span>
+                </div>
+                <p>Computación e IA. Sede Global Virtual. Clases en vivo vía Google Meet.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-black mb-6 uppercase text-xs tracking-widest">Matrículas & Comunidad</h4>
+                <div class="flex flex-col gap-4">
+                    <button onclick="openEnrollmentModal('Informes')" class="block text-left hover:text-green-400 transition-colors">WhatsApp (Informes)</button>
+                    <a href="https://t.me/aivaacademia" target="_blank" class="block hover:text-blue-400 transition-colors">Telegram Comunidad</a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-white font-black mb-6 uppercase text-xs tracking-widest">Legal</h4>
+                <button onclick="openLegalModal('terms')" class="block hover:text-white mb-4">Términos de Servicio</button>
+                <button onclick="openLegalModal('privacy')" class="block hover:text-white transition-colors">Privacidad (Perú)</button>
+            </div>
+        </div>
     </footer>
 
-    <!-- MODAL DE TEXTO LEGAL (NUEVO) -->
-    <div id="legal-modal" class="fixed inset-0 z-[80] hidden" role="dialog" aria-modal="true">
-        <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity" onclick="closeLegalModal()"></div>
-        <div class="fixed inset-0 z-10 overflow-y-auto">
-            <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
-                <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-2xl border border-slate-200">
-                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
-                        <h3 class="text-lg font-serif font-bold text-slate-800" id="legal-modal-title">Legal</h3>
-                        <button onclick="closeLegalModal()" class="text-slate-400 hover:text-slate-600 text-2xl font-bold">&times;</button>
-                    </div>
-                    <div class="px-6 py-6 max-h-[70vh] overflow-y-auto modal-scroll text-sm text-slate-600 leading-relaxed" id="legal-modal-content">
-                        <!-- Contenido dinámico -->
-                    </div>
-                    <div class="bg-slate-50 px-6 py-3 flex justify-end border-t border-slate-200">
-                        <button type="button" class="inline-flex justify-center rounded border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 focus:outline-none" onclick="closeLegalModal()">Cerrar</button>
-                    </div>
+    <!-- MODAL DE INSCRIPCIÓN -->
+    <div id="enrollment-modal" class="fixed inset-0 z-[110] hidden items-center justify-center p-4 bg-slate-900/90 backdrop-blur-md text-slate-800">
+        <div class="bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden">
+            <div class="p-8 bg-academy-primary text-white flex justify-between items-center">
+                <div>
+                    <h3 class="text-2xl font-black tracking-tight italic">Inscripción AIVA</h3>
+                    <p class="text-blue-200 text-[10px] mt-1 uppercase font-bold tracking-widest tracking-widest">Vengo de la web oficial</p>
                 </div>
+                <button onclick="closeEnrollmentModal()" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-red-500 transition-all">✕</button>
+            </div>
+            <div class="p-8 space-y-5">
+                <input type="text" id="parent-name" placeholder="Padre / Apoderado" class="w-full px-5 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:ring-2 focus:ring-academy-primary outline-none">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" id="student-name" placeholder="Estudiante" class="w-full px-5 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:ring-2 focus:ring-academy-primary outline-none">
+                    <input type="number" id="student-age" placeholder="Edad" class="w-full px-5 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:ring-2 focus:ring-academy-primary outline-none">
+                </div>
+                <select id="selected-plan" class="w-full px-5 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm outline-none">
+                    <option value="Estándar (S/ 150)">Plan Estándar (S/ 150)</option>
+                    <option value="Semi-Privado (S/ 180)">Plan Semi-Privado (S/ 180)</option>
+                    <option value="Colectivo (S/ 120)">Plan Colectivo (S/ 120)</option>
+                </select>
+                <button onclick="submitEnrollment()" class="w-full py-4 bg-academy-primary text-white rounded-2xl font-black text-lg hover:bg-academy-accent shadow-xl transform transition-transform active:scale-95">ENVIAR WHATSAPP</button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL (Estilo Documento) - YA EXISTENTE -->
-    <div id="faq-modal" class="fixed inset-0 z-[60] hidden" role="dialog" aria-modal="true">
-        <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
-        <div class="fixed inset-0 z-10 overflow-y-auto">
-            <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
-                <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-xl border border-slate-200">
-                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
-                        <h3 class="text-lg font-serif font-bold text-slate-800" id="modal-title">Información</h3>
-                        <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 text-2xl font-bold">&times;</button>
-                    </div>
-                    <div class="px-6 py-6 max-h-[60vh] overflow-y-auto modal-scroll" id="modal-content"></div>
-                    <div class="bg-slate-50 px-6 py-3 flex justify-end border-t border-slate-200">
-                        <button type="button" class="inline-flex justify-center rounded border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onclick="closeModal()">Cerrar</button>
-                    </div>
-                </div>
+    <!-- Modal Plan Maestro -->
+    <div id="plan-modal" class="fixed inset-0 z-[110] hidden items-center justify-center p-4 bg-slate-900/90 backdrop-blur-md text-slate-800">
+        <div class="bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden">
+            <div class="p-8 bg-academy-gold text-white flex justify-between items-center text-center md:text-left">
+                <h3 class="text-2xl font-black italic tracking-tight">Pedir Plan Maestro</h3>
+                <button onclick="closePlanModal()" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white">✕</button>
+            </div>
+            <div class="p-8 space-y-4">
+                <input type="text" id="plan-parent-name" placeholder="Nombre Padre" class="w-full px-5 py-3 border rounded-2xl outline-none focus:ring-2 focus:ring-academy-gold">
+                <input type="text" id="plan-student-name" placeholder="Nombre Estudiante" class="w-full px-5 py-3 border rounded-2xl outline-none focus:ring-2 focus:ring-academy-gold">
+                <select id="selected-duration" class="w-full px-5 py-3 border rounded-2xl text-sm font-bold outline-none">
+                    <option value="1 mes">Plan Introducción (1 mes)</option>
+                    <option value="3 meses">Plan Básico (3 meses)</option>
+                    <option value="6 meses">Plan Intermedio (6 meses)</option>
+                    <option value="12 meses">Plan Anual (12 meses)</option>
+                </select>
+                <button onclick="submitPlanRequest()" class="w-full py-4 bg-academy-gold text-white rounded-2xl font-black">RECIBIR POR WHATSAPP</button>
             </div>
         </div>
     </div>
 
-    <!-- ✨ AIVOT CHAT MODAL ✨ -->
-    <div id="aivot-modal" class="fixed inset-0 z-[70] hidden" role="dialog" aria-modal="true">
-        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" onclick="closeAivotChat()"></div>
-        <div class="fixed inset-0 z-10 overflow-y-auto flex items-center justify-center p-4">
-            <div class="relative bg-white w-full max-w-lg rounded-2xl shadow-2xl flex flex-col h-[600px] border border-slate-200 overflow-hidden">
-                <!-- Header -->
-                <div class="bg-gradient-to-r from-academy-primary to-purple-800 px-6 py-4 flex justify-between items-center">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-xl">🤖</div>
-                        <div>
-                            <h3 class="text-white font-bold text-lg leading-none">AIVOT</h3>
-                            <span class="text-purple-200 text-xs">Información en vivo</span>
-                        </div>
-                    </div>
-                    <button onclick="closeAivotChat()" class="text-white/70 hover:text-white text-2xl">&times;</button>
-                </div>
-                
-                <!-- Chat Area -->
-                <div id="chat-messages" class="flex-grow p-4 overflow-y-auto bg-slate-50 flex flex-col gap-3">
-                    <div class="chat-ai chat-bubble">
-                        ¡Hola! Soy <strong>AIVOT</strong>, el asistente virtual de la academia. 🤖<br>
-                        Puedo darte información sobre <strong>precios, horarios, temarios y el inicio de clases</strong>. ¿En qué te puedo ayudar?
-                    </div>
-                </div>
-                
-                <!-- Input Area -->
-                <div class="p-4 bg-white border-t border-slate-200">
-                    <form id="chat-form" onsubmit="handleChatSubmit(event)" class="flex gap-2">
-                        <input type="text" id="chat-input" placeholder="Escribe tu pregunta aquí..." class="flex-grow px-4 py-2 border border-slate-300 rounded-full focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all text-sm">
-                        <button type="submit" class="w-10 h-10 rounded-full bg-purple-600 hover:bg-purple-700 text-white flex items-center justify-center transition-colors shadow-sm disabled:opacity-50" id="send-btn">
-                            <svg class="w-5 h-5 transform rotate-90" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg>
-                        </button>
-                    </form>
-                    <p class="text-[10px] text-slate-400 text-center mt-2">AIVOT usa IA Generativa. Verifica la información importante.</p>
-                </div>
+    <!-- Modal Legal -->
+    <div id="legal-modal" class="fixed inset-0 z-[120] hidden items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm text-slate-800">
+        <div class="bg-white w-full max-w-3xl rounded-[2.5rem] shadow-2xl flex flex-col max-h-[85vh] overflow-hidden">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <h3 id="modal-title" class="text-xl font-black text-academy-primary uppercase italic"></h3>
+                <button onclick="closeLegalModal()" class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600">✕</button>
             </div>
+            <div id="modal-body" class="p-8 overflow-y-auto modal-content text-slate-600 text-sm leading-relaxed space-y-4"></div>
+            <div class="p-6 bg-slate-50 border-t text-center"><button onclick="closeLegalModal()" class="bg-academy-primary text-white px-10 py-3 rounded-2xl font-black uppercase text-xs">Aceptar</button></div>
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // --- API CONFIG ---
-        // ⚠️ INSTRUCCIONES: El entorno proveerá la apiKey. 
-        // Si descargas este archivo para uso local, debes insertar tu propia API KEY de Google AI Studio aquí.
-        const apiKey = ""; 
-
-        // --- PLAN MAESTRO TABS LOGIC ---
-        function switchTab(tabId) {
-            // Remove active from all buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            // Remove active from all content
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Add active to selected
-            document.getElementById('tab-' + tabId).classList.add('active');
-            document.getElementById('content-' + tabId).classList.add('active');
-        }
-
-        // --- LEGAL MODAL LOGIC (NUEVO) ---
-        const legalModal = document.getElementById('legal-modal');
-        const legalTitle = document.getElementById('legal-modal-title');
-        const legalContent = document.getElementById('legal-modal-content');
-
-        const legalTexts = {
-            'terms': `
-                <h4 class="font-bold text-slate-800 mb-2">1. Aceptación</h4>
-                <p class="mb-4">Al inscribirse en AIVOLUTION 2026, el usuario acepta estos términos. El servicio es educativo y no garantiza resultados académicos específicos fuera de nuestro programa.</p>
-                <h4 class="font-bold text-slate-800 mb-2">2. Pagos y Reembolsos</h4>
-                <p class="mb-4">Los pagos son mensuales o anuales. No se realizan reembolsos por clases no asistidas. El acceso a la plataforma AIVOT se suspende si hay retraso en los pagos superior a 5 días.</p>
-                <h4 class="font-bold text-slate-800 mb-2">3. Propiedad Intelectual</h4>
-                <p class="mb-4">Todo el material (PDFs, videos, software AIVOT) es propiedad de AIVA. Está prohibida su distribución sin autorización.</p>
-                <h4 class="font-bold text-slate-800 mb-2">4. Conducta</h4>
-                <p>Se espera respeto mutuo en las sesiones en vivo. AIVA se reserva el derecho de admisión ante conductas inapropiadas.</p>
-            `,
-            'privacy': `
-                <h4 class="font-bold text-slate-800 mb-2">1. Datos Recopilados</h4>
-                <p class="mb-4">Recopilamos nombres y correos con fines estrictamente educativos y de comunicación. No compartimos datos con terceros.</p>
-                <h4 class="font-bold text-slate-800 mb-2">2. Menores de Edad</h4>
-                <p class="mb-4">Al ser un servicio para menores, requerimos el consentimiento expreso de padres o tutores para el tratamiento de datos del estudiante.</p>
-                <h4 class="font-bold text-slate-800 mb-2">3. Uso de IA</h4>
-                <p class="mb-4">Las interacciones con AIVOT pueden ser procesadas para mejorar el servicio, pero no se usan para perfilado publicitario.</p>
-                <h4 class="font-bold text-slate-800 mb-2">4. Derechos ARCO</h4>
-                <p>Puede solicitar la eliminación de sus datos enviando un correo a aiva.academia.oficial@gmail.com.</p>
-            `
+        const views = { 
+            kids: document.getElementById('view-kids'), 
+            lab: document.getElementById('view-lab'), 
+            blog: document.getElementById('view-blog'), 
+            negocios: document.getElementById('view-negocios'),
+            runner: document.getElementById('view-game-runner')
         };
-
-        function openLegalModal(type) {
-            legalTitle.innerText = type === 'terms' ? 'Términos y Condiciones' : 'Política de Privacidad';
-            legalContent.innerHTML = legalTexts[type];
-            legalModal.classList.remove('hidden');
-        }
-
-        function closeLegalModal() {
-            legalModal.classList.add('hidden');
-        }
-
-        // --- GEMINI LOGIC ---
-        
-        // 2. AIVOT CHAT
-        const aivotModal = document.getElementById('aivot-modal');
-        const chatMessages = document.getElementById('chat-messages');
-        const chatInput = document.getElementById('chat-input');
-        
-        function openAivotChat() {
-            aivotModal.classList.remove('hidden');
-            if(!apiKey && !window.tempApiKey) {
-                // Check key on open to avoid blocking UI later
-                const userKey = prompt("Para iniciar el chat con AIVOT, ingresa tu Gemini API Key:");
-                if(userKey) window.tempApiKey = userKey;
-            }
-        }
-        function closeAivotChat() { aivotModal.classList.add('hidden'); }
-
-        async function handleChatSubmit(e) {
-            e.preventDefault();
-            const msg = chatInput.value.trim();
-            if(!msg) return;
-
-            // Add User Message
-            appendMessage(msg, 'user');
-            chatInput.value = '';
-
-            // Add AI Loading Bubble
-            const loadingId = 'loading-' + Date.now();
-            const loadingHtml = `<div id="${loadingId}" class="chat-bubble chat-ai"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>`;
-            chatMessages.insertAdjacentHTML('beforeend', loadingHtml);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            // SYSTEM PROMPT ACTUALIZADO PARA INFORMACIÓN DE ACADEMIA
-            const systemPrompt = `Eres AIVOT, el asistente virtual oficial de AIVA (Academia de Inteligencia Artificial).
-            Tu objetivo es informar a padres y alumnos sobre el programa AIVOLUTION 2026.
-            Datos clave para responder:
-            - Programa: AIVOLUTION 2026 (Anual de Alto Rendimiento).
-            - Modalidad: Virtual 100% en vivo por Google Meet.
-            - Inicio de clases: 6 de Marzo de 2026.
-            - Inversión: S/ 150.00 mensuales (Plan Grupal). Se paga por Yape o Plin.
-            - Horarios Perú: Viernes 4:30 PM a 6:00 PM y Sábados 11:30 AM a 1:00 PM.
-            - Niveles: "Explorador" (7-9 años, Office, Creatividad) y "Pro-Collaborator" (10-12+ años, Google Workspace, Programación).
-            - Beneficio exclusivo: Acceso a "AIVOT", un mentor IA 24/7 (que eres tú).
-            - Duración: De Marzo a Diciembre (4 Trimestres).
-            - Inscripción: Deben llenar el formulario de Google o contactar al WhatsApp.
-            - Contacto WhatsApp: +51 952 225 123.
-            
-            Instrucciones:
-            - Preséntate siempre como AIVOT.
-            - Responde de forma amable, corta, profesional y en español.
-            - Usa emojis moderadamente.
-            - Si preguntan algo que no está en los datos clave o quieren inscripción directa, sugiere amablemente contactar al WhatsApp +51 952 225 123.`;
-
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${window.tempApiKey || apiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        contents: [
-                            { role: "user", parts: [{ text: systemPrompt + "\n\nUsuario pregunta: " + msg }] }
-                        ] 
-                    })
-                });
-                
-                const data = await response.json();
-                const aiText = data.candidates[0].content.parts[0].text;
-                
-                // Remove loading and add response
-                document.getElementById(loadingId).remove();
-                appendMessage(aiText, 'ai');
-
-            } catch (error) {
-                document.getElementById(loadingId).remove();
-                appendMessage("Lo siento, tuve un error de conexión. 🔌 Intenta de nuevo más tarde.", 'ai');
-            }
-        }
-
-        function appendMessage(text, sender) {
-            const div = document.createElement('div');
-            div.className = `chat-bubble ${sender === 'user' ? 'chat-user' : 'chat-ai'}`;
-            // Use marked for basic markdown in AI responses
-            div.innerHTML = sender === 'ai' ? marked.parse(text) : text;
-            chatMessages.appendChild(div);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-
-        // --- EXISTING LOGIC (Countdown, Nav, etc) ---
-        function updateCountdown() {
-            const targetDate = new Date("March 6, 2026 00:00:00").getTime();
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-            if (distance < 0) return;
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            const dEl = document.getElementById("days");
-            if(dEl) {
-                dEl.innerText = days < 10 ? "0" + days : days;
-                document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
-                document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
-                document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
-            }
-        }
-        setInterval(updateCountdown, 1000);
-
-        const costAnswer = "Sí, funciona mediante suscripción mensual o anual. Tienes 15 días de demostración gratuita.";
-        const referralGeneralAnswer = "Sí. Si recomiendas AIVA, recibes un crédito de un mes por cada referido suscrito (máx 2).";
-        const faqData = {
-            'primaria_pe': [{q: "¿Qué es AIVA-Study Primaria?", a: "Asistente educativo digital para 1.º a 6.º grado."},{q: "¿Tiene un costo?", a: costAnswer},{q: "Referidos", a: referralGeneralAnswer}],
-            'secundaria_pe': [{q: "¿Qué es AIVA-Study Secundaria?", a: "Apoyo académico para 1.º a 5.º de secundaria."},{q: "¿Tiene un costo?", a: costAnswer}],
-             'aritmetica_pe': [{q: "¿Qué hace AritMática?", a: "Soporte docente en didáctica matemática y adaptaciones curriculares."}],
-            'docente': [{q: "¿Qué hace AIVA-Docente?", a: "Crea sesiones de aprendizaje y rúbricas alineadas al CNEB."}],
-            'studyu': [{q: "¿Ayuda en la universidad?", a: "Sí, analiza textos complejos y prepara para exámenes."}],
-            'primaria_es': [{q: "¿Sirve para España?", a: "Sí, adaptado al currículo español."}],
-            'eso_es': [{q: "¿Sirve para la ESO?", a: "Sí, apoyo paso a paso."}]
-        };
-
-        const views = { kids: document.getElementById('view-kids'), asistentes: document.getElementById('view-asistentes'), negocios: document.getElementById('view-negocios') };
-        const navBtns = { kids: document.getElementById('nav-btn-kids'), asistentes: document.getElementById('nav-btn-asistentes'), negocios: document.getElementById('nav-btn-negocios') };
+        const navBtns = { kids: document.getElementById('nav-btn-kids'), lab: document.getElementById('nav-btn-lab'), blog: document.getElementById('nav-btn-blog'), negocios: document.getElementById('nav-btn-negocios') };
         const mobileMenu = document.getElementById('mobile-menu');
 
-        function switchView(viewName) {
-            mobileMenu.classList.add('hidden');
-            Object.values(views).forEach(el => el.classList.add('hidden-section'));
-            const inactiveClass = "px-5 py-2 rounded-md text-sm font-semibold transition-all text-slate-600 hover:text-academy-primary bg-transparent";
-            const activeClass = "px-5 py-2 rounded-md text-sm font-semibold transition-all text-white bg-academy-primary shadow-sm";
-            Object.values(navBtns).forEach(btn => btn.className = inactiveClass);
-            if(views[viewName]) {
-                views[viewName].classList.remove('hidden-section');
-                navBtns[viewName].className = activeClass;
-                window.scrollTo(0, 0);
-            }
-        }
-        document.getElementById('mobile-menu-btn').addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        function toggleMobileMenu() { mobileMenu.classList.toggle('hidden'); }
 
-        const modal = document.getElementById('faq-modal');
-        const modalContent = document.getElementById('modal-content');
-        const modalTitle = document.getElementById('modal-title');
-        function openModal(key) {
-            let content = "";
-            let title = "Información";
-            if(key === 'primaria_pe') {
-                title = "Preguntas Frecuentes (Escolar Perú)";
-                content = renderAccordion(faqData['primaria_pe'], "Primaria") + renderAccordion(faqData['secundaria_pe'], "Secundaria");
-            } else if (faqData[key]) {
-                title = key.toUpperCase().replace('_', ' ');
-                content = renderAccordion(faqData[key]);
+        function switchView(viewName) {
+            Object.values(views).forEach(el => el.classList.add('hidden-section'));
+            // Restaurar Navbar y Footer si salimos del juego
+            document.getElementById('navbar').classList.remove('hidden-section');
+            document.getElementById('footer').classList.remove('hidden-section');
+            
+            const inactive = "px-5 py-2 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:text-academy-primary bg-transparent";
+            const active = "px-5 py-2 rounded-xl text-sm font-semibold transition-all text-white bg-academy-primary shadow-lg nav-active";
+            
+            Object.values(navBtns).forEach(btn => { if(btn) btn.className = inactive; });
+            
+            if (views[viewName]) {
+                views[viewName].classList.remove('hidden-section');
+                if(navBtns[viewName]) navBtns[viewName].className = active;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
-            modalTitle.innerText = title;
-            modalContent.innerHTML = content;
-            modal.classList.remove('hidden');
         }
-        function closeModal() { modal.classList.add('hidden'); }
-        function renderAccordion(items, sectionTitle = "") {
-            let html = sectionTitle ? `<h4 class="font-bold text-academy-primary uppercase text-xs tracking-wider mb-3 mt-4 border-b border-slate-200 pb-1">${sectionTitle}</h4>` : '';
-            html += items.map(item => `<div class="mb-2 border border-slate-200 rounded overflow-hidden"><button class="w-full text-left px-4 py-3 bg-slate-50 hover:bg-white text-slate-700 font-medium text-sm flex justify-between items-center transition-colors" onclick="this.nextElementSibling.classList.toggle('hidden')">${item.q} <span class="text-academy-gold font-bold">+</span></button><div class="hidden px-4 py-3 bg-white text-sm text-slate-500 border-t border-slate-100 leading-relaxed">${item.a}</div></div>`).join('');
-            return html;
+
+        // --- SISTEMA DE JUEGO (IFRAME) ---
+        function launchGame(url) {
+            const iframe = document.getElementById('game-iframe');
+            iframe.src = url;
+            switchView('runner');
+            document.getElementById('navbar').classList.add('hidden-section');
+            document.getElementById('footer').classList.add('hidden-section');
         }
-        function toggleFaq(category) {
-            const targetBtn = document.getElementById('btn-'+category);
-            if (!targetBtn) return;
-            document.querySelectorAll('.faq-btn').forEach(b => b.className = "faq-btn px-4 py-2 rounded-full text-xs font-bold bg-slate-100 text-slate-500 hover:bg-slate-200 transition-all");
-            targetBtn.className = "faq-btn px-4 py-2 rounded-full text-xs font-bold bg-academy-primary text-white shadow-md transition-all";
-            const container = document.getElementById('faq-container-general');
-            if (!container) return;
-            const map = { 'primaria': faqData['primaria_pe'], 'secundaria': faqData['secundaria_pe'], 'uni': faqData['studyu'], 'pro': faqData['docente'] };
-            if(map[category]) container.innerHTML = renderAccordion(map[category]);
-            else container.innerHTML = `<p class="text-center text-slate-400 py-4">Selecciona una categoría válida.</p>`;
+
+        // --- WHATSAPP LOGIC ---
+        function openEnrollmentModal(plan = 'General') {
+            document.getElementById('enrollment-modal').classList.remove('hidden');
+            document.getElementById('enrollment-modal').classList.add('flex');
+            document.getElementById('selected-plan').value = plan.includes('General') ? 'Estándar (S/ 150)' : plan;
         }
-        window.onload = () => { switchView('kids'); if(document.getElementById('btn-primaria')) toggleFaq('primaria'); };
+        function closeEnrollmentModal() { document.getElementById('enrollment-modal').classList.add('hidden'); }
+        function submitEnrollment() {
+            const p = document.getElementById('parent-name').value;
+            const s = document.getElementById('student-name').value;
+            const a = document.getElementById('student-age').value;
+            const pl = document.getElementById('selected-plan').value;
+            if(!p || !s || !a) return alert("Completa los datos.");
+            const msg = `*[AIVA ACADEMY - INSCRIPCIÓN]*\n\nHola, soy ${p}. Deseo inscribir a ${s} de ${a} años en el ${pl}. Vengo de la web oficial.`;
+            window.open(`https://wa.me/51952225123?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function openPlanRequestModal() { document.getElementById('plan-modal').classList.remove('hidden'); document.getElementById('plan-modal').classList.add('flex'); }
+        function closePlanModal() { document.getElementById('plan-modal').classList.add('hidden'); }
+        function submitPlanRequest() {
+            const p = document.getElementById('plan-parent-name').value;
+            const s = document.getElementById('student-name').value;
+            const d = document.getElementById('selected-duration').value;
+            const msg = `*[AIVA ACADEMY - PLAN MAESTRO]*\n\nHola, soy ${p}. Solicito el Plan Maestro de ${d} para mi hijo(a) ${s}. Vengo de la web oficial.`;
+            window.open(`https://wa.me/51952225123?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // --- LEGAL ---
+        const legalData = {
+            terms: { title: "Términos de Servicio", content: "<h4>1. Modalidad Virtual</h4><p>Clases 100% vía Google Meet.</p><h4>2. Requisitos Técnicos</h4><ul class='list-disc pl-5 mt-2'><li>Computadora con Win 10/11.</li><li>Internet estable (5Mbps min).</li><li>Cámara y Micro funcional.</li></ul>" },
+            privacy: { title: "Privacidad Perú", content: "<p>Datos protegidos bajo Ley 29733. Uso académico exclusivo para comunicación con apoderados.</p>" }
+        };
+        function openLegalModal(type) {
+            document.getElementById('modal-title').innerText = legalData[type].title;
+            document.getElementById('modal-body').innerHTML = legalData[type].content;
+            document.getElementById('legal-modal').classList.remove('hidden');
+            document.getElementById('legal-modal').classList.add('flex');
+        }
+        function closeLegalModal() { document.getElementById('legal-modal').classList.add('hidden'); }
+
+        window.onload = () => switchView('kids');
     </script>
 </body>
 </html>
